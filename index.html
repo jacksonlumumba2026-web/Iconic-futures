@@ -1,211 +1,682 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iconic Furniture Kenya</title>
-  <meta name="description" content="Premium balcony seats, outdoor furniture and custom cushion designs in Kenya." />
-  <script src="https://cdn.tailwindcss.com"></script>  <style>
-    html{scroll-behavior:smooth}
-    body{overflow-x:hidden}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    .glass{backdrop-filter:blur(18px);background:rgba(15,23,42,.75)}
+<title>Iconic Furniture Kenya</title>
+<meta name="description" content="Luxury balcony seats, weaving furniture, cushions and custom designs in Kenya."/>
 
-    .hero-slide{
-      position:absolute;
-      inset:0;
-      background-size:cover;
-      background-position:center;
-      opacity:0;
-      transition:opacity 1.5s ease;
-    }
+<script src="https://cdn.tailwindcss.com"></script>
 
-    .hero-slide.active{opacity:1}
+<style>
+html{scroll-behavior:smooth}
+body{background:#020617;color:white;overflow-x:hidden}
 
-    .floating-whatsapp{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      z-index:999;
-      animation:float 2s infinite;
-    }
+.gold{color:#f59e0b}
+.bg-gold{background:#f59e0b}
 
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-8px)}
-    }
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:.7s ease;
+}
+.reveal.show{
+opacity:1;
+transform:none;
+}
 
-    .product-card{
-      transition:.4s;
-    }
+#loader{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:99999;
+}
 
-    .product-card:hover{
-      transform:translateY(-8px) scale(1.02);
-      box-shadow:0 20px 50px rgba(0,0,0,.35);
-    }
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+background:#f59e0b;
+width:0%;
+z-index:9999;
+}
 
-    .reveal{
-      opacity:0;
-      transform:translateY(40px);
-      transition:1s;
-    }
+.glass{
+backdrop-filter:blur(14px);
+background:rgba(0,0,0,.55);
+}
 
-    .reveal.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
+.hero-slide{
+position:absolute;
+inset:0;
+background-size:cover;
+background-position:center;
+opacity:0;
+transition:1.2s;
+transform:scale(1.08);
+}
+.hero-slide.active{
+opacity:1;
+transform:scale(1);
+}
 
-    .counter{font-size:2rem;font-weight:bold;color:#fbbf24}
-  </style></head><body class="bg-slate-950 text-white">  <!-- Existing structure kept intact -->  <div class="bg-black border-b border-amber-600/20 text-sm px-4 py-2 flex flex-col gap-1 md:flex-row md:justify-between text-slate-300">
-    <p>Nairobi, Kenya • +254 759 657163</p>
-    <p>ericoduor24@gmail.com</p>
-  </div>  <nav id="nav" class="glass sticky top-0 z-50 flex justify-between items-center p-4 border-b border-slate-800">
-    <h1 class="text-xl font-bold">Iconic Furniture</h1>
-    <a href="#contact" class="text-sm border px-4 py-2 rounded-full">Contact</a>
-  </nav>  <!-- HERO (upgraded, original preserved) -->  <section class="relative min-h-screen flex items-center px-4 overflow-hidden"><div class="hero-slide active" style="background-image:url('images/hero.jpg')"></div>
-<div class="hero-slide" style="background-image:url('images/product1.jpg')"></div>
-<div class="hero-slide" style="background-image:url('images/product2.jpg')"></div>
+.product-card{
+transition:.4s;
+}
+.product-card:hover{
+transform:translateY(-8px);
+}
 
-<div class="absolute inset-0 bg-black/60"></div>
+.floating-btn{
+position:fixed;
+right:20px;
+z-index:999;
+border-radius:999px;
+padding:14px 18px;
+font-weight:700;
+}
 
-<div class="relative z-10 max-w-2xl">
-  <p class="text-amber-400 mb-3 font-semibold">Luxury Outdoor Furniture</p>
+#whatsappFloat{bottom:90px;}
+#callFloat{bottom:20px;}
 
-  <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
-    Premium Weaving.<br>
-    <span class="text-amber-400">Timeless Comfort.</span>
-  </h2>
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
 
-  <p class="text-slate-200 text-lg mb-8">
-    We design and craft premium balcony seats, weaving furniture, cushions and custom designs in Kenya.
-  </p>
+.modal.open{
+display:flex;
+}
 
-  <div class="flex gap-4 flex-wrap">
-    <a href="#products" class="bg-amber-500 text-black px-6 py-3 rounded-full font-semibold">View Products</a>
-    <a href="#contact" class="border border-white px-6 py-3 rounded-full">Contact Us</a>
-  </div>
+.testimonial{
+display:none;
+}
+.testimonial.active{
+display:block;
+}
+</style>
+</head>
+
+
+<body>
+
+
+<div id="loader">
+<div class="text-amber-400 text-2xl font-bold animate-pulse">
+ICONIC FURNITURE
+</div>
 </div>
 
-  </section>  <!-- Features preserved -->  <section class="px-4 -mt-12 relative z-20 reveal">
-    <div class="bg-white text-black rounded-3xl p-6 grid md:grid-cols-4 gap-4 shadow-xl">
-      <div>✓ Quality Materials</div>
-      <div>✓ Custom Designs</div>
-      <div>✓ Payment After Delivery</div>
-      <div>✓ Built To Last</div>
-    </div>
-  </section>  <!-- Added premium counters -->  <section class="py-16 grid md:grid-cols-3 text-center gap-8 reveal">
-    <div>
-      <div class="counter" data-count="500">0</div>
-      <p>Happy Clients</p>
-    </div><div>
-  <div class="counter" data-count="26">0</div>
-  <p>Furniture Designs</p>
+
+<div id="progress"></div>
+
+
+<a
+id="whatsappFloat"
+class="floating-btn bg-green-500 text-white"
+href="https://wa.me/254759657163">
+WhatsApp
+</a>
+
+<a
+id="callFloat"
+class="floating-btn bg-amber-500 text-black"
+href="tel:+254759657163">
+Call
+</a>
+
+
+<!-- TOP BAR -->
+<div class="bg-black text-slate-300 text-sm px-4 py-2 flex flex-wrap gap-4 justify-between">
+<div>Nairobi, Kenya</div>
+<div>+254 759 657163</div>
+<div>ericoduor24@gmail.com</div>
+</div>
+
+
+<!-- NAV -->
+<nav
+id="nav"
+class="glass sticky top-0 z-50 flex justify-between items-center px-4 py-4 border-b border-slate-800">
+
+<h1 class="text-xl font-bold">
+ICONIC <span class="gold">FURNITURE</span>
+</h1>
+
+<div class="hidden md:flex gap-6">
+<a href="#about">About</a>
+<a href="#products">Products</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contact</a>
+</div>
+
+<a
+href="https://wa.me/254759657163"
+class="bg-amber-500 text-black px-5 py-2 rounded-full font-semibold">
+WhatsApp
+</a>
+
+</nav>
+
+
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center overflow-hidden">
+
+<div id="hero1" class="hero-slide active" style="background-image:url('images/hero1.jpg')"></div>
+<div id="hero2" class="hero-slide" style="background-image:url('images/hero2.jpg')"></div>
+<div id="hero3" class="hero-slide" style="background-image:url('images/hero3.jpg')"></div>
+
+<div class="absolute inset-0 bg-black/70"></div>
+
+<div class="relative z-10 px-4 max-w-3xl">
+
+<p class="text-amber-400 mb-4 font-semibold">
+Luxury Outdoor Furniture
+</p>
+
+<h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+Premium Weaving.<br>
+<span class="text-amber-400">Timeless Comfort.</span>
+</h2>
+
+<p class="text-slate-200 text-lg mb-8">
+We design and craft premium balcony seats, weaving furniture,
+cushions and custom designs in Kenya.
+</p>
+
+<div class="flex gap-4 flex-wrap">
+<a href="#products" class="bg-amber-500 text-black px-6 py-3 rounded-full font-semibold">
+View Products
+</a>
+
+<a href="#contact" class="border border-white px-6 py-3 rounded-full">
+Contact Us
+</a>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+<section class="px-4 -mt-12 relative z-20 reveal">
+
+<div class="bg-white text-black rounded-3xl p-6 grid md:grid-cols-4 gap-4 shadow-xl">
+
+<div>✓ Quality Materials</div>
+<div>✓ Custom Designs</div>
+<div>✓ Payment After Delivery</div>
+<div>✓ Built To Last</div>
+
+</div>
+
+</section>
+
+
+
+<!-- COUNTERS -->
+<section class="py-16 px-4 text-center reveal">
+
+<div class="grid md:grid-cols-4 gap-6">
+
+<div>
+<h3 class="text-4xl font-bold gold counter" data-target="500">0</h3>
+<p>Projects</p>
 </div>
 
 <div>
-  <div class="counter" data-count="5">0</div>
-  <p>Years Experience</p>
+<h3 class="text-4xl font-bold gold counter" data-target="300">0</h3>
+<p>Happy Clients</p>
 </div>
 
-  </section>  <!-- Products kept but now scalable -->  <section id="products" class="px-4 py-12 reveal">
-    <h3 class="text-2xl font-bold mb-6">Featured Products</h3><input id="search" placeholder="Search products..."
-  class="w-full mb-6 bg-slate-900 border border-slate-700 p-4 rounded-2xl" />
-
-<div id="productsGrid" class="grid md:grid-cols-3 gap-4"></div>
-
-  </section>  <!-- Testimonials -->  <section class="py-20 px-4 text-center reveal">
-    <h3 class="text-3xl font-bold mb-8">What Clients Say</h3>
-    <p id="testimonial" class="text-slate-300 text-xl italic">
-      “Amazing quality and fast delivery.”
-    </p>
-  </section>  <!-- Contact preserved -->  <section id="contact" class="px-4 py-12 border-t border-slate-800">
-    <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
-    <p>Phone: +254 759 657163</p>
-    <p>Email: ericoduor24@gmail.com</p><div class="mt-6 flex gap-4">
-  <a href="#">Facebook</a>
-  <a href="#">TikTok</a>
+<div>
+<h3 class="text-4xl font-bold gold counter" data-target="26">0</h3>
+<p>Products</p>
 </div>
 
-  </section>  <!-- Floating WhatsApp --><a
-href="https://wa.me/254759657163"
-class="floating-whatsapp bg-green-500 text-black px-5 py-4 rounded-full font-bold"> WhatsApp </a>
+<div>
+<h3 class="text-4xl font-bold gold counter" data-target="5">0</h3>
+<p>Years</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+<section id="about" class="px-4 py-20 reveal">
+
+<div class="grid md:grid-cols-2 gap-8 items-center">
+
+<div>
+
+<p class="gold mb-2 font-semibold">
+About Us
+</p>
+
+<h2 class="text-4xl font-bold mb-4">
+Crafted With Passion.
+</h2>
+
+<p class="text-slate-300">
+Iconic Furniture specializes in premium weaving furniture,
+balcony sets, cushions and custom luxury outdoor designs.
+</p>
+
+</div>
+
+<img
+src="images/about.jpg"
+class="rounded-3xl"/>
+
+</div>
+
+</section>
+
+
+
+<!-- PRODUCTS -->
+<section id="products" class="px-4 py-20 reveal">
+
+<div class="flex flex-wrap gap-4 justify-between mb-8">
+
+<h2 class="text-3xl font-bold">
+Products
+</h2>
+
+<input
+id="search"
+placeholder="Search..."
+class="bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl">
+
+</div>
+
+
+<div class="flex gap-3 mb-8 flex-wrap">
+
+<button onclick="filterProducts('all')" class="px-4 py-2 border rounded-full">All</button>
+<button onclick="filterProducts('balcony')" class="px-4 py-2 border rounded-full">Balcony</button>
+<button onclick="filterProducts('chair')" class="px-4 py-2 border rounded-full">Chairs</button>
+<button onclick="filterProducts('cushion')" class="px-4 py-2 border rounded-full">Cushions</button>
+
+</div>
+
+
+<div
+id="productsGrid"
+class="grid md:grid-cols-4 gap-6">
+</div>
+
+</section>
+
+
+
+<!-- TESTIMONIALS -->
+<section class="px-4 py-20 text-center reveal">
+
+<h2 class="text-3xl font-bold mb-10">
+Client Reviews
+</h2>
+
+<div id="t1" class="testimonial active">
+★★★★★<br><br>
+“Best furniture in Kenya.”
+</div>
+
+<div id="t2" class="testimonial">
+★★★★★<br><br>
+“Excellent quality and delivery.”
+</div>
+
+<div id="t3" class="testimonial">
+★★★★★<br><br>
+“Very professional.”
+</div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+<section
+id="contact"
+class="px-4 py-20 border-t border-slate-800 reveal">
+
+<h2 class="text-3xl font-bold mb-6">
+Contact Us
+</h2>
+
+<form id="contactForm" class="grid gap-4 max-w-xl">
+
+<input id="name" placeholder="Name" class="bg-slate-900 p-4 rounded-xl">
+<input id="phone" placeholder="Phone" class="bg-slate-900 p-4 rounded-xl">
+
+<textarea
+id="message"
+placeholder="Message"
+class="bg-slate-900 p-4 rounded-xl">
+</textarea>
+
+<button class="bg-amber-500 text-black p-4 rounded-xl font-bold">
+Send Inquiry
+</button>
+
+</form>
+
+</section>
+
+
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="bg-slate-900 p-8 rounded-3xl max-w-md text-center">
+
+<img id="modalImg" class="rounded-2xl mb-4">
+
+<h3 id="modalName" class="text-2xl font-bold mb-2"></h3>
+
+<p id="modalPrice" class="gold mb-4"></p>
+
+<a
+id="orderBtn"
+target="_blank"
+class="bg-green-500 px-6 py-3 rounded-full inline-block">
+Order On WhatsApp
+</a>
+
+</div>
+</div>
+
+
 
 <script>
 
-// hero slider
-const slides=document.querySelectorAll('.hero-slide');
-let current=0;
-setInterval(()=>{
-  slides[current].classList.remove('active');
-  current=(current+1)%slides.length;
-  slides[current].classList.add('active');
-},4000);
 
-// products (easy for 26+)
-const products=[
-{name:'Balcony Set',price:'KES 18,000',img:'images/product1.jpg'},
-{name:'Outdoor Chair',price:'KES 9,500',img:'images/product2.jpg'},
-{name:'Custom Cushion',price:'KES 2,500',img:'images/product3.jpg'}
-];
-
-const grid=document.getElementById('productsGrid');
-
-function renderProducts(list){
-  grid.innerHTML='';
-
-  list.forEach(p=>{
-    grid.innerHTML+=`<div class="product-card border border-slate-800 rounded-2xl p-4">
-      <img src="${p.img}" class="rounded-xl mb-4">
-      <h4 class="font-semibold">${p.name}</h4>
-      <p class="text-slate-300">${p.price}</p>
-    </div>`;
-  });
+window.onload=()=>{
+setTimeout(()=>{
+loader.style.display="none"
+},1200)
 }
 
-renderProducts(products);
 
-document.getElementById('search').addEventListener('input',e=>{
-  const q=e.target.value.toLowerCase();
-  renderProducts(products.filter(p=>p.name.toLowerCase().includes(q)));
-});
 
-// reveal
-const observer=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{
-   if(entry.isIntersecting) entry.target.classList.add('visible');
- })
-});
+window.addEventListener("scroll",()=>{
 
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+let winScroll=document.body.scrollTop||document.documentElement.scrollTop
 
-// counters
-const counters=document.querySelectorAll('.counter');
+let height=
+document.documentElement.scrollHeight
+-
+document.documentElement.clientHeight
 
-counters.forEach(counter=>{
- const target=+counter.dataset.count;
- let count=0;
+let scrolled=(winScroll/height)*100
 
- const update=()=>{
-   if(count<target){
-      count++;
-      counter.innerText=count;
-      requestAnimationFrame(update);
-   }
- }
- update();
-});
+progress.style.width=scrolled+"%"
 
-// testimonials
-const testimonials=[
-'“Amazing quality and fast delivery.”',
-'“Best furniture in Nairobi.”',
-'“Premium designs and excellent service.”'
-];
+})
 
-let t=0;
+
+
+const slides=document.querySelectorAll(".hero-slide")
+
+let slideIndex=0
+
 setInterval(()=>{
- t=(t+1)%testimonials.length;
- document.getElementById('testimonial').innerText=testimonials[t];
-},4000);
 
-</script></body>
+slides.forEach(s=>s.classList.remove("active"))
+
+slideIndex++
+
+if(slideIndex>=slides.length) slideIndex=0
+
+slides[slideIndex].classList.add("active")
+
+},4000)
+
+
+
+const observer=
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show")
+
+}
+
+})
+
+})
+
+document
+.querySelectorAll(".reveal")
+.forEach(el=>observer.observe(el))
+
+
+
+document
+.querySelectorAll(".counter")
+.forEach(counter=>{
+
+let target=+counter.dataset.target
+
+let count=0
+
+let interval=setInterval(()=>{
+
+count += Math.ceil(target/40)
+
+if(count>=target){
+
+count=target
+
+clearInterval(interval)
+
+}
+
+counter.innerText=count
+
+},40)
+
+})
+
+
+
+
+const products=[
+
+{
+name:"Balcony Set",
+price:"KES 18,000",
+category:"balcony",
+img:"images/product1.jpg"
+},
+
+{
+name:"Outdoor Chair",
+price:"KES 9,500",
+category:"chair",
+img:"images/product2.jpg"
+},
+
+{
+name:"Luxury Cushion",
+price:"KES 1,500",
+category:"cushion",
+img:"images/product3.jpg"
+}
+
+]
+
+
+
+const grid=document.getElementById("productsGrid")
+
+
+
+function renderProducts(list){
+
+grid.innerHTML=""
+
+list.forEach(product=>{
+
+grid.innerHTML += `
+
+<div
+class="product-card border border-slate-800 rounded-2xl p-4 cursor-pointer"
+onclick='openModal(${JSON.stringify(product)})'>
+
+<img src="${product.img}" class="rounded-xl mb-4">
+
+<h4 class="font-semibold">${product.name}</h4>
+
+<p class="text-slate-300">${product.price}</p>
+
+</div>
+
+`
+
+})
+
+}
+
+
+
+renderProducts(products)
+
+
+
+function filterProducts(category){
+
+if(category==="all"){
+
+renderProducts(products)
+
+return
+
+}
+
+renderProducts(
+products.filter(p=>p.category===category)
+)
+
+}
+
+
+
+search.oninput=e=>{
+
+const term=
+e.target.value.toLowerCase()
+
+renderProducts(
+
+products.filter(p=>
+
+p.name.toLowerCase().includes(term)
+
+)
+
+)
+
+}
+
+
+
+function openModal(product){
+
+modal.classList.add("open")
+
+modalImg.src=product.img
+
+modalName.innerText=product.name
+
+modalPrice.innerText=product.price
+
+orderBtn.href=
+`https://wa.me/254759657163?text=Hello I want ${product.name}`
+
+}
+
+
+
+modal.onclick=(e)=>{
+
+if(e.target===modal){
+
+modal.classList.remove("open")
+
+}
+
+}
+
+
+
+
+let testimonialIndex=0
+
+const testimonials=
+document.querySelectorAll(".testimonial")
+
+setInterval(()=>{
+
+testimonials.forEach(t=>
+t.classList.remove("active")
+)
+
+testimonialIndex++
+
+if(testimonialIndex>=testimonials.length){
+
+testimonialIndex=0
+
+}
+
+testimonials[testimonialIndex]
+.classList.add("active")
+
+},3000)
+
+
+
+contactForm.onsubmit=(e)=>{
+
+e.preventDefault()
+
+const text=`
+Hello Iconic Furniture
+
+Name: ${name.value}
+Phone: ${phone.value}
+
+Message:
+${message.value}
+`
+
+window.open(
+`https://wa.me/254759657163?text=${encodeURIComponent(text)}`
+)
+
+}
+
+</script>
+
+</body>
 </html>
