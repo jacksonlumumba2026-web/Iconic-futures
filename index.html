@@ -1,91 +1,271 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iconic Furniture Kenya</title>
-  <meta name="description" content="Premium balcony seats, outdoor furniture and custom cushion designs in Kenya." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iconic Furnitures | Nairobi</title>
+  <meta name="description" content="Custom furniture weaving, cushion repair & bespoke designs. Located on Ngong Rd near Racecourse, Nairobi. Call 0759657163."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body class="bg-slate-950 text-white">  <!-- Top Bar -->  <div class="bg-black border-b border-amber-600/20 text-sm px-4 py-2 flex flex-col gap-1 md:flex-row md:justify-between text-slate-300">
-    <p>Nairobi, Kenya • +254 759 657163</p>
-    <p>ericoduor24@gmail.com</p>
-  </div>  <!-- Navbar -->  <nav class="flex justify-between items-center p-4 border-b border-slate-800">
-    <h1 class="text-xl font-bold">Iconic Furniture</h1>
-    <a href="#contact" class="text-sm border px-4 py-2 rounded-full">Contact</a>
-  </nav>  <!-- Hero -->  <section class="relative min-h-screen bg-cover bg-center flex items-center px-4" style="background-image:url('images/hero.jpg')">
-    <div class="absolute inset-0 bg-black/60"></div><div class="relative z-10 max-w-2xl">
-  <p class="text-amber-400 mb-3 font-semibold">Luxury Outdoor Furniture</p>
+<body>
 
-  <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
-    Premium Weaving.<br>
-    <span class="text-amber-400">Timeless Comfort.</span>
-  </h2>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo">ICONIC <span>FURNITURES</span></div>
+    <ul class="nav__links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav__cta">Get a Quote</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-  <p class="text-slate-200 text-lg mb-8">
-    We design and craft premium balcony seats, weaving furniture, cushions and custom designs in Kenya.
-  </p>
-
-  <div class="flex gap-4 flex-wrap">
-    <a href="#products" class="bg-amber-500 text-black px-6 py-3 rounded-full font-semibold">View Products</a>
-    <a href="#contact" class="border border-white px-6 py-3 rounded-full">Contact Us</a>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#services" onclick="closeMenu()">Services</a></li>
+      <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Get a Quote</a></li>
+    </ul>
   </div>
-</div>
 
-  </section>  <!-- Features -->  <section class="px-4 -mt-12 relative z-20">
-    <div class="bg-white text-black rounded-3xl p-6 grid md:grid-cols-4 gap-4 shadow-xl">
-      <div>✓ Quality Materials</div>
-      <div>✓ Custom Designs</div>
-      <div>✓ Payment After Delivery</div>
-      <div>✓ Built To Last</div>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <p class="hero__tag reveal">Nairobi's Finest Furniture Craft</p>
+      <h1 class="hero__title reveal">Where Fabric<br/><em>Meets</em> Form</h1>
+      <p class="hero__sub reveal">Custom weaving, cushion repair & bespoke furniture design<br/>on Ngong Rd, Nairobi.</p>
+      <div class="hero__actions reveal">
+        <a href="#contact" class="btn btn--primary">Book a Consultation</a>
+        <a href="#services" class="btn btn--outline">Our Services</a>
+      </div>
     </div>
-  </section>  <!-- Hero OLD -->  <section class="px-4 py-12 text-center">
-    <h2 class="text-4xl font-bold leading-tight mb-4">
-      Premium Balcony & Outdoor Furniture
-    </h2>
-    <p class="text-slate-300 mb-6">
-      Handcrafted furniture, custom cushions, and modern designs made in Kenya.
-    </p><div class="flex gap-3 justify-center">
-  <a 
-    href="https://wa.me/254759657163?text=Hello%20Iconic%20Furniture"
-    class="bg-white text-black px-6 py-3 rounded-full font-semibold">
-    WhatsApp Us
-  </a>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
 
-  <a href="#products" class="border px-6 py-3 rounded-full">
-    View Products
-  </a>
-</div>
-
-  </section>  <!-- Trust -->  <section class="px-4 py-8 grid grid-cols-2 gap-4 text-center">
-    <div class="border border-slate-800 p-4 rounded-2xl">Payment After Delivery</div>
-    <div class="border border-slate-800 p-4 rounded-2xl">Custom Colors</div>
-    <div class="border border-slate-800 p-4 rounded-2xl">Made in Kenya</div>
-    <div class="border border-slate-800 p-4 rounded-2xl">Fast Delivery</div>
-  </section>  <!-- Products -->  <section id="products" class="px-4 py-12">
-    <h3 class="text-2xl font-bold mb-6">Featured Products</h3><div class="grid gap-4">
-
-  <div class="border border-slate-800 rounded-2xl p-4">
-    <img src="images/product1.jpg" loading="lazy" class="rounded-xl mb-4" alt="Balcony Set" />
-    <h4 class="font-semibold">Balcony Set</h4>
-    <p class="text-slate-300">KES 18,000</p>
+  <!-- MARQUEE STRIP -->
+  <div class="strip">
+    <div class="strip__track">
+      <span>Weaving</span>
+      <span>✦</span>
+      <span>Cushion Repair</span>
+      <span>✦</span>
+      <span>Custom Design</span>
+      <span>✦</span>
+      <span>Bespoke Furniture</span>
+      <span>✦</span>
+      <span>Weaving</span>
+      <span>✦</span>
+      <span>Cushion Repair</span>
+      <span>✦</span>
+      <span>Custom Design</span>
+      <span>✦</span>
+      <span>Bespoke Furniture</span>
+      <span>✦</span>
+    </div>
   </div>
 
-  <div class="border border-slate-800 rounded-2xl p-4">
-    <img src="images/product2.jpg" loading="lazy" class="rounded-xl mb-4" alt="Outdoor Chair" />
-    <h4 class="font-semibold">Outdoor Chair</h4>
-    <p class="text-slate-300">KES 9,500</p>
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">What We Do</p>
+        <h2>Our Services</h2>
+      </div>
+      <div class="services__grid">
+
+        <div class="service-card reveal">
+          <div class="service-card__icon">⟡</div>
+          <h3>Furniture Weaving</h3>
+          <p>Traditional and modern weaving techniques applied to chairs, sofas, and decorative furniture pieces. Each piece is hand-crafted with precision.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-card__icon">◈</div>
+          <h3>Cushion Repair & Design</h3>
+          <p>We restore worn cushions to their former glory and create new custom cushion designs that perfectly match your furniture and décor.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-card__icon">❋</div>
+          <h3>Custom Furniture Design</h3>
+          <p>Bring your vision to life. Tell us what you want and we'll design and build furniture tailored exactly to your taste and space.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Our Work</p>
+        <h2>Crafted to Impress</h2>
+      </div>
+    </div>
+    <div class="gallery__grid">
+      <!-- Add your client's images here -->
+      <!-- Replace the src with actual image paths e.g. images/photo1.jpg -->
+      <div class="gallery__item reveal">
+        <img src="images/photo1.jpg" alt="Iconic Furniture work 1" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo2.jpg" alt="Iconic Furniture work 2" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo3.jpg" alt="Iconic Furniture work 3" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo4.jpg" alt="Iconic Furniture work 4" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo5.jpg" alt="Iconic Furniture work 5" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo6.jpg" alt="Iconic Furniture work 6" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container about__inner">
+      <div class="about__text reveal">
+        <p class="section-tag">Our Story</p>
+        <h2>Craftsmanship<br/>You Can Trust</h2>
+        <p>Iconic Furnitures is a Nairobi-based furniture workshop located along Ngong Road, near the Racecourse. We specialize in bringing character and life back to your furniture through skilled weaving, cushion design, and fully bespoke creations.</p>
+        <p>Whether you have a broken chair that needs revival or a dream sofa in your head — we make it real.</p>
+        <div class="about__stats">
+          <div class="stat">
+            <span class="stat__num">100%</span>
+            <span class="stat__label">Handcrafted</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">Custom</span>
+            <span class="stat__label">Every Order</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">Nairobi</span>
+            <span class="stat__label">Based & Trusted</span>
+          </div>
+        </div>
+        <div class="about__social">
+          <a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener" class="social-link">Facebook</a>
+          <a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener" class="social-link">TikTok</a>
+        </div>
+      </div>
+      <div class="about__image reveal">
+        <div class="about__image-frame">
+          <img src="images/about.jpg" alt="Iconic Furniture workshop" onerror="this.style.display='none'"/>
+          <div class="about__image-deco"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Get In Touch</p>
+        <h2>Let's Build Something<br/><em>Beautiful</em></h2>
+      </div>
+      <div class="contact__inner">
+        <div class="contact__info reveal">
+          <div class="contact__item">
+            <div class="contact__icon">📍</div>
+            <div>
+              <strong>Location</strong>
+              <p>Ngong Rd, near Racecourse, Nairobi</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__icon">📞</div>
+            <div>
+              <strong>Phone / WhatsApp</strong>
+              <p><a href="tel:+254759657163">0759 657 163</a></p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__icon">📘</div>
+            <div>
+              <strong>Facebook</strong>
+              <p><a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener">Iconic Furnitures</a></p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__icon">🎵</div>
+            <div>
+              <strong>TikTok</strong>
+              <p><a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener">@iconicfurniture1</a></p>
+            </div>
+          </div>
+          <a href="https://wa.me/254759657163?text=Hi%20Iconic%20Furnitures!%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" class="btn btn--whatsapp">
+            💬 Chat on WhatsApp
+          </a>
+        </div>
+
+        <form class="contact__form reveal" id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Kamau" required/>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="07XX XXX XXX" required/>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Needed</label>
+            <select id="service">
+              <option value="">Select a service…</option>
+              <option>Furniture Weaving</option>
+              <option>Cushion Repair</option>
+              <option>Custom Design</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Tell us about your project</label>
+            <textarea id="message" rows="4" placeholder="Describe what you need…"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Send via WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__logo">ICONIC <span>FURNITURES</span></div>
+      <p>Ngong Rd, Nairobi &nbsp;|&nbsp; 0759 657 163</p>
+      <p class="footer__copy">© 2025 Iconic Furnitures. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose">✕</button>
+    <img id="lightboxImg" src="" alt=""/>
   </div>
 
-</div>
-
-  </section>  <!-- Contact -->  <section id="contact" class="px-4 py-12 border-t border-slate-800">
-    <h3 class="text-2xl font-bold mb-4">Contact Us</h3><p>Phone: +254 759 657163</p>
-<p>Email: ericoduor24@gmail.com</p>
-
-<div class="mt-6 flex gap-4">
-  <a href="https://facebook.com" target="_blank">Facebook</a>
-  <a href="https://tiktok.com" target="_blank">TikTok</a>
-</div>
-
-  </section></body>
+  <script src="js/main.js"></script>
+</body>
 </html>
