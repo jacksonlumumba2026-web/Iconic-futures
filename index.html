@@ -1,682 +1,1193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Iconic Furniture Kenya</title>
-<meta name="description" content="Luxury balcony seats, weaving furniture, cushions and custom designs in Kenya."/>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
+<title>Iconic Furnitures | Nairobi</title>
+<meta name="description" content="Custom furniture weaving, cushion repair & bespoke designs. Located on Ngong Rd near Racecourse, Nairobi. Call 0759657163."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-html{scroll-behavior:smooth}
-body{background:#020617;color:white;overflow-x:hidden}
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-.gold{color:#f59e0b}
-.bg-gold{background:#f59e0b}
-
-.reveal{
-opacity:0;
-transform:translateY(30px);
-transition:.7s ease;
-}
-.reveal.show{
-opacity:1;
-transform:none;
-}
-
-#loader{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:99999;
+:root {
+  --ink:    #1A1410;
+  --ink2:   #2C2218;
+  --sand:   #F7F2EB;
+  --sand2:  #EDE5D8;
+  --copper: #B5732A;
+  --copper2:#D4943E;
+  --copper3:#E8C080;
+  --muted:  #8A7A6A;
+  --white:  #FDFAF6;
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'Jost', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-#progress{
-position:fixed;
-top:0;
-left:0;
-height:3px;
-background:#f59e0b;
-width:0%;
-z-index:9999;
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
 }
 
-.glass{
-backdrop-filter:blur(14px);
-background:rgba(0,0,0,.55);
+/* Custom cursor */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--copper);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s var(--ease), background 0.2s;
+  transform: translate(-50%,-50%);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(181,115,42,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.4s var(--ease), width 0.3s, height 0.3s, border-color 0.3s;
+  transform: translate(-50%,-50%);
+}
+body:hover .cursor-ring { border-color: rgba(181,115,42,0.6); }
+
+a, button { cursor: none; }
+
+/* ===========================
+   NOISE TEXTURE OVERLAY
+=========================== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.4;
 }
 
-.hero-slide{
-position:absolute;
-inset:0;
-background-size:cover;
-background-position:center;
-opacity:0;
-transition:1.2s;
-transform:scale(1.08);
+/* ===========================
+   NAVIGATION
+=========================== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
 }
-.hero-slide.active{
-opacity:1;
-transform:scale(1);
+.nav.scrolled {
+  background: rgba(253,250,246,0.95);
+  backdrop-filter: blur(12px);
+  padding: 16px 40px;
+  box-shadow: 0 1px 0 rgba(26,20,16,0.08);
+}
+.nav__logo {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav__logo span { color: var(--copper); }
+.nav__links {
+  list-style: none;
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav__links a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__cta {
+  background: var(--ink) !important;
+  color: var(--white) !important;
+  padding: 10px 24px !important;
+  letter-spacing: 2px;
+  transition: background 0.2s !important;
+}
+.nav__cta:hover { background: var(--copper) !important; color: var(--white) !important; }
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav__burger span {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.3s, opacity 0.3s;
 }
 
-.product-card{
-transition:.4s;
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
 }
-.product-card:hover{
-transform:translateY(-8px);
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+.mobile-menu ul { list-style: none; text-align: center; }
+.mobile-menu li { margin: 24px 0; }
+.mobile-menu a {
+  font-family: var(--ff-display);
+  font-size: clamp(28px, 8vw, 48px);
+  font-style: italic;
+  color: var(--sand);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--copper2); }
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
 }
 
-.floating-btn{
-position:fixed;
-right:20px;
-z-index:999;
-border-radius:999px;
-padding:14px 18px;
-font-weight:700;
+.hero__left {
+  background: var(--ink2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 60px 80px;
+  position: relative;
+  overflow: hidden;
 }
 
-#whatsappFloat{bottom:90px;}
-#callFloat{bottom:20px;}
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999;
+.hero__left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 0% 100%, rgba(181,115,42,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 0%, rgba(181,115,42,0.08) 0%, transparent 50%);
 }
 
-.modal.open{
-display:flex;
+.hero__right {
+  background: var(--sand2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.testimonial{
-display:none;
+.hero__right-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(181,115,42,0.04) 30px, rgba(181,115,42,0.04) 31px),
+    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(181,115,42,0.04) 30px, rgba(181,115,42,0.04) 31px);
 }
-.testimonial.active{
-display:block;
+
+.hero__right-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+  text-align: center;
+}
+
+.hero__craft-word {
+  font-family: var(--ff-display);
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(181,115,42,0.12);
+  line-height: 1;
+  letter-spacing: -2px;
+  user-select: none;
+}
+
+.hero__right-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px; height: 180px;
+  border: 1px solid rgba(181,115,42,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  animation: rotateBadge 20s linear infinite;
+}
+
+.hero__right-badge::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(181,115,42,0.15);
+  border-radius: 50%;
+}
+
+@keyframes rotateBadge {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.badge-inner {
+  animation: rotateBadge 20s linear infinite reverse;
+  text-align: center;
+}
+
+.badge-inner span:first-child {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--copper);
+}
+.badge-inner span:last-child {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.hero__tag {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper2);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__title {
+  font-family: var(--ff-display);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--sand);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.hero__title em { font-style: italic; color: var(--copper2); }
+
+.hero__sub {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(247,242,235,0.55);
+  max-width: 380px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.hero__scroll span {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(247,242,235,0.3);
+}
+.hero__scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--copper), transparent);
+  animation: scrollAnim 2s ease infinite;
+}
+@keyframes scrollAnim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: var(--ff-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.btn--primary {
+  background: var(--copper);
+  color: var(--white);
+  border: 1px solid var(--copper);
+}
+.btn--primary:hover { background: var(--copper2); border-color: var(--copper2); transform: translateY(-2px); }
+.btn--outline {
+  border: 1px solid rgba(247,242,235,0.3);
+  color: var(--sand);
+}
+.btn--outline:hover { border-color: var(--copper2); color: var(--copper2); transform: translateY(-2px); }
+.btn--dark {
+  background: var(--ink);
+  color: var(--white);
+  border: 1px solid var(--ink);
+}
+.btn--dark:hover { background: var(--copper); border-color: var(--copper); transform: translateY(-2px); }
+.btn--whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  padding: 16px 32px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 24px;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn--whatsapp:hover { background: #20c25d; transform: translateY(-2px); }
+.btn--full { width: 100%; text-align: center; }
+
+/* ===========================
+   MARQUEE STRIP
+=========================== */
+.strip {
+  background: var(--copper);
+  overflow: hidden;
+  padding: 14px 0;
+}
+.strip__track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+.strip__track span {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+  font-weight: 400;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===========================
+   SECTIONS SHARED
+=========================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+.section-tag {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 14px;
+  display: block;
+}
+.section-header h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.section-header h2 em { font-style: italic; color: var(--copper); }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===========================
+   SERVICES
+=========================== */
+.services {
+  padding: 120px 0;
+  background: var(--white);
+}
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.service-card {
+  background: var(--sand);
+  padding: 48px 36px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transition: transform 0.4s var(--ease);
+  transform-origin: left;
+}
+.service-card:hover {
+  border-color: rgba(181,115,42,0.15);
+  transform: translateY(-6px);
+  background: var(--white);
+}
+.service-card:hover::after { transform: scaleX(1); }
+.service-card__icon {
+  font-size: 28px;
+  color: var(--copper);
+  margin-bottom: 24px;
+  display: block;
+  transition: transform 0.3s;
+}
+.service-card:hover .service-card__icon { transform: scale(1.2); }
+.service-card h3 {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.service-card p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+/* ===========================
+   GALLERY
+=========================== */
+.gallery {
+  padding: 120px 0;
+  background: var(--ink2);
+}
+.gallery .section-tag { color: var(--copper2); }
+.gallery .section-header h2 { color: var(--sand); }
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 3px;
+  margin-top: 60px;
+}
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--ink);
+  cursor: none;
+}
+.gallery__item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: unset;
+}
+.gallery__item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+  display: block;
+}
+.gallery__item.no-img {
+  background: linear-gradient(135deg, #2C2218, #1A1410);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery__item.no-img::before {
+  content: '✦';
+  font-size: 32px;
+  color: rgba(181,115,42,0.2);
+}
+.gallery__item:hover img { transform: scale(1.08); }
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,20,16,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery__item:hover .gallery__overlay { opacity: 1; }
+.gallery__overlay span {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper3);
+  border: 1px solid rgba(232,192,128,0.4);
+  padding: 10px 24px;
+}
+
+/* ===========================
+   ABOUT
+=========================== */
+.about {
+  padding: 120px 0;
+  background: var(--white);
+}
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about__text p.section-tag { margin-bottom: 14px; }
+.about__text h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.about__text > p {
+  font-size: 13px;
+  line-height: 2;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.about__stats {
+  display: flex;
+  gap: 32px;
+  margin: 40px 0;
+  padding: 32px 0;
+  border-top: 1px solid var(--sand2);
+  border-bottom: 1px solid var(--sand2);
+}
+.stat__num {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--copper);
+  line-height: 1;
+}
+.stat__label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.about__social {
+  display: flex;
+  gap: 16px;
+}
+.social-link {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.social-link:hover { color: var(--copper); }
+
+.about__image-frame {
+  position: relative;
+}
+.about__image-frame img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+.about__image-deco {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(181,115,42,0.2);
+  z-index: -1;
+  transition: inset 0.4s var(--ease);
+}
+.about__image-frame:hover .about__image-deco { inset: -24px; }
+
+/* ===========================
+   CONTACT
+=========================== */
+.contact {
+  padding: 120px 0;
+  background: var(--sand2);
+}
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  margin-top: 60px;
+}
+.contact__info {}
+.contact__item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(181,115,42,0.1);
+}
+.contact__icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.contact__item strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.contact__item p, .contact__item a {
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.6;
+}
+.contact__item a:hover { color: var(--copper); }
+
+/* Form */
+.contact__form {
+  background: var(--white);
+  padding: 48px 40px;
+  box-shadow: 0 20px 60px rgba(26,20,16,0.08);
+}
+.form-group {
+  margin-bottom: 24px;
+}
+.form-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--sand2);
+  background: var(--white);
+  font-family: var(--ff-body);
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 300;
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--copper); }
+.form-group textarea { resize: vertical; }
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer {
+  background: var(--ink);
+  padding: 48px 40px;
+}
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.footer__logo {
+  font-family: var(--ff-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sand);
+  letter-spacing: 1px;
+}
+.footer__logo span { color: var(--copper2); }
+.footer p {
+  font-size: 12px;
+  color: rgba(247,242,235,0.4);
+  letter-spacing: 1px;
+}
+.footer__copy {
+  font-size: 11px !important;
+  color: rgba(247,242,235,0.2) !important;
+}
+
+/* ===========================
+   LIGHTBOX
+=========================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,6,0.95);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.lightbox.open { opacity: 1; pointer-events: all; }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.lightbox__close {
+  position: absolute;
+  top: 24px; right: 32px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--sand);
+  cursor: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.lightbox__close:hover { opacity: 1; }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero__right { display: none; }
+  .hero__left { padding: 100px 32px 80px; min-height: 100vh; }
+  .nav { padding: 20px 24px; }
+  .nav.scrolled { padding: 14px 24px; }
+  .nav__links { display: none; }
+  .nav__burger { display: flex; }
+  .services__grid { grid-template-columns: 1fr; }
+  .gallery__grid { grid-template-columns: 1fr 1fr; }
+  .gallery__item:first-child { grid-column: span 2; grid-row: span 1; }
+  .about__inner { grid-template-columns: 1fr; gap: 48px; }
+  .about__image { order: -1; }
+  .contact__inner { grid-template-columns: 1fr; gap: 40px; }
+  .contact__form { padding: 32px 24px; }
+  .container { padding: 0 24px; }
+  .services { padding: 80px 0; }
+  .gallery { padding: 80px 0; }
+  .about { padding: 80px 0; }
+  .contact { padding: 80px 0; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+  a, button { cursor: auto; }
+}
+
+@media (max-width: 600px) {
+  .gallery__grid { grid-template-columns: 1fr; }
+  .gallery__item:first-child { grid-column: span 1; }
+  .about__stats { flex-direction: column; gap: 20px; }
+  .hero__actions { flex-direction: column; }
+  .btn { text-align: center; }
 }
 </style>
 </head>
-
-
 <body>
 
-
-<div id="loader">
-<div class="text-amber-400 text-2xl font-bold animate-pulse">
-ICONIC FURNITURE
-</div>
-</div>
-
-
-<div id="progress"></div>
-
-
-<a
-id="whatsappFloat"
-class="floating-btn bg-green-500 text-white"
-href="https://wa.me/254759657163">
-WhatsApp
-</a>
-
-<a
-id="callFloat"
-class="floating-btn bg-amber-500 text-black"
-href="tel:+254759657163">
-Call
-</a>
-
-
-<!-- TOP BAR -->
-<div class="bg-black text-slate-300 text-sm px-4 py-2 flex flex-wrap gap-4 justify-between">
-<div>Nairobi, Kenya</div>
-<div>+254 759 657163</div>
-<div>ericoduor24@gmail.com</div>
-</div>
-
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav
-id="nav"
-class="glass sticky top-0 z-50 flex justify-between items-center px-4 py-4 border-b border-slate-800">
-
-<h1 class="text-xl font-bold">
-ICONIC <span class="gold">FURNITURE</span>
-</h1>
-
-<div class="hidden md:flex gap-6">
-<a href="#about">About</a>
-<a href="#products">Products</a>
-<a href="#gallery">Gallery</a>
-<a href="#contact">Contact</a>
-</div>
-
-<a
-href="https://wa.me/254759657163"
-class="bg-amber-500 text-black px-5 py-2 rounded-full font-semibold">
-WhatsApp
-</a>
-
+<nav class="nav" id="nav">
+  <div class="nav__logo">ICONIC <span>FURNITURES</span></div>
+  <ul class="nav__links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav__cta">Get a Quote</a></li>
+  </ul>
+  <button class="nav__burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Get a Quote</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
-<section class="relative min-h-screen flex items-center overflow-hidden">
-
-<div id="hero1" class="hero-slide active" style="background-image:url('images/hero1.jpg')"></div>
-<div id="hero2" class="hero-slide" style="background-image:url('images/hero2.jpg')"></div>
-<div id="hero3" class="hero-slide" style="background-image:url('images/hero3.jpg')"></div>
-
-<div class="absolute inset-0 bg-black/70"></div>
-
-<div class="relative z-10 px-4 max-w-3xl">
-
-<p class="text-amber-400 mb-4 font-semibold">
-Luxury Outdoor Furniture
-</p>
-
-<h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-Premium Weaving.<br>
-<span class="text-amber-400">Timeless Comfort.</span>
-</h2>
-
-<p class="text-slate-200 text-lg mb-8">
-We design and craft premium balcony seats, weaving furniture,
-cushions and custom designs in Kenya.
-</p>
-
-<div class="flex gap-4 flex-wrap">
-<a href="#products" class="bg-amber-500 text-black px-6 py-3 rounded-full font-semibold">
-View Products
-</a>
-
-<a href="#contact" class="border border-white px-6 py-3 rounded-full">
-Contact Us
-</a>
-</div>
-
-</div>
-
+<section class="hero" id="home">
+  <div class="hero__left">
+    <p class="hero__tag reveal">Nairobi's Finest Furniture Craft</p>
+    <h1 class="hero__title reveal">Where Fabric<br/><em>Meets</em> Form</h1>
+    <p class="hero__sub reveal">Custom weaving, cushion repair & bespoke furniture design<br/>on Ngong Rd, Nairobi.</p>
+    <div class="hero__actions reveal">
+      <a href="#contact" class="btn btn--primary">Book a Consultation</a>
+      <a href="#services" class="btn btn--outline">Our Services</a>
+    </div>
+  </div>
+  <div class="hero__right">
+    <div class="hero__right-bg"></div>
+    <div class="hero__right-content">
+      <div class="hero__craft-word">Craft</div>
+      <div class="hero__right-badge">
+        <div class="badge-inner">
+          <span>100%</span>
+          <span>Handcrafted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
 </section>
 
-
-
-<!-- FEATURES -->
-<section class="px-4 -mt-12 relative z-20 reveal">
-
-<div class="bg-white text-black rounded-3xl p-6 grid md:grid-cols-4 gap-4 shadow-xl">
-
-<div>✓ Quality Materials</div>
-<div>✓ Custom Designs</div>
-<div>✓ Payment After Delivery</div>
-<div>✓ Built To Last</div>
-
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip__track">
+    <span>Weaving</span><span>✦</span>
+    <span>Cushion Repair</span><span>✦</span>
+    <span>Custom Design</span><span>✦</span>
+    <span>Bespoke Furniture</span><span>✦</span>
+    <span>Nairobi Based</span><span>✦</span>
+    <span>Weaving</span><span>✦</span>
+    <span>Cushion Repair</span><span>✦</span>
+    <span>Custom Design</span><span>✦</span>
+    <span>Bespoke Furniture</span><span>✦</span>
+    <span>Nairobi Based</span><span>✦</span>
+  </div>
 </div>
 
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">What We Do</span>
+      <h2>Our Services</h2>
+    </div>
+    <div class="services__grid">
+      <div class="service-card reveal">
+        <div class="service-card__icon">⟡</div>
+        <h3>Furniture Weaving</h3>
+        <p>Traditional and modern weaving techniques applied to chairs, sofas, and decorative furniture pieces. Each piece is hand-crafted with precision.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon">◈</div>
+        <h3>Cushion Repair & Design</h3>
+        <p>We restore worn cushions to their former glory and create new custom cushion designs that perfectly match your furniture and décor.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon">❋</div>
+        <h3>Custom Furniture Design</h3>
+        <p>Bring your vision to life. Tell us what you want and we'll design and build furniture tailored exactly to your taste and space.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-
-<!-- COUNTERS -->
-<section class="py-16 px-4 text-center reveal">
-
-<div class="grid md:grid-cols-4 gap-6">
-
-<div>
-<h3 class="text-4xl font-bold gold counter" data-target="500">0</h3>
-<p>Projects</p>
-</div>
-
-<div>
-<h3 class="text-4xl font-bold gold counter" data-target="300">0</h3>
-<p>Happy Clients</p>
-</div>
-
-<div>
-<h3 class="text-4xl font-bold gold counter" data-target="26">0</h3>
-<p>Products</p>
-</div>
-
-<div>
-<h3 class="text-4xl font-bold gold counter" data-target="5">0</h3>
-<p>Years</p>
-</div>
-
-</div>
-
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Our Work</span>
+      <h2>Crafted to Impress</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="gallery__grid">
+      <div class="gallery__item reveal">
+        <img src="images/photo1.jpg" alt="Iconic Furniture work 1" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo2.jpg" alt="Iconic Furniture work 2" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo3.jpg" alt="Iconic Furniture work 3" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo4.jpg" alt="Iconic Furniture work 4" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo5.jpg" alt="Iconic Furniture work 5" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo6.jpg" alt="Iconic Furniture work 6" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 <!-- ABOUT -->
-<section id="about" class="px-4 py-20 reveal">
-
-<div class="grid md:grid-cols-2 gap-8 items-center">
-
-<div>
-
-<p class="gold mb-2 font-semibold">
-About Us
-</p>
-
-<h2 class="text-4xl font-bold mb-4">
-Crafted With Passion.
-</h2>
-
-<p class="text-slate-300">
-Iconic Furniture specializes in premium weaving furniture,
-balcony sets, cushions and custom luxury outdoor designs.
-</p>
-
-</div>
-
-<img
-src="images/about.jpg"
-class="rounded-3xl"/>
-
-</div>
-
+<section class="about" id="about">
+  <div class="container about__inner">
+    <div class="about__text reveal">
+      <span class="section-tag">Our Story</span>
+      <h2>Craftsmanship<br/>You Can Trust</h2>
+      <p>Iconic Furnitures is a Nairobi-based furniture workshop located along Ngong Road, near the Racecourse. We specialize in bringing character and life back to your furniture through skilled weaving, cushion design, and fully bespoke creations.</p>
+      <p>Whether you have a broken chair that needs revival or a dream sofa in your head — we make it real.</p>
+      <div class="about__stats">
+        <div class="stat">
+          <span class="stat__num">100%</span>
+          <span class="stat__label">Handcrafted</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">Custom</span>
+          <span class="stat__label">Every Order</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">Nairobi</span>
+          <span class="stat__label">Based & Trusted</span>
+        </div>
+      </div>
+      <div class="about__social">
+        <a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener" class="social-link">Facebook</a>
+        <a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener" class="social-link">TikTok</a>
+      </div>
+    </div>
+    <div class="about__image reveal">
+      <div class="about__image-frame">
+        <img src="images/about.jpg" alt="Iconic Furniture workshop" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="about__image-deco"></div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
-
-<!-- PRODUCTS -->
-<section id="products" class="px-4 py-20 reveal">
-
-<div class="flex flex-wrap gap-4 justify-between mb-8">
-
-<h2 class="text-3xl font-bold">
-Products
-</h2>
-
-<input
-id="search"
-placeholder="Search..."
-class="bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl">
-
-</div>
-
-
-<div class="flex gap-3 mb-8 flex-wrap">
-
-<button onclick="filterProducts('all')" class="px-4 py-2 border rounded-full">All</button>
-<button onclick="filterProducts('balcony')" class="px-4 py-2 border rounded-full">Balcony</button>
-<button onclick="filterProducts('chair')" class="px-4 py-2 border rounded-full">Chairs</button>
-<button onclick="filterProducts('cushion')" class="px-4 py-2 border rounded-full">Cushions</button>
-
-</div>
-
-
-<div
-id="productsGrid"
-class="grid md:grid-cols-4 gap-6">
-</div>
-
-</section>
-
-
-
-<!-- TESTIMONIALS -->
-<section class="px-4 py-20 text-center reveal">
-
-<h2 class="text-3xl font-bold mb-10">
-Client Reviews
-</h2>
-
-<div id="t1" class="testimonial active">
-★★★★★<br><br>
-“Best furniture in Kenya.”
-</div>
-
-<div id="t2" class="testimonial">
-★★★★★<br><br>
-“Excellent quality and delivery.”
-</div>
-
-<div id="t3" class="testimonial">
-★★★★★<br><br>
-“Very professional.”
-</div>
-
-</section>
-
-
 
 <!-- CONTACT -->
-<section
-id="contact"
-class="px-4 py-20 border-t border-slate-800 reveal">
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Get In Touch</span>
+      <h2>Let's Build Something<br/><em>Beautiful</em></h2>
+    </div>
+    <div class="contact__inner">
+      <div class="contact__info reveal">
+        <div class="contact__item">
+          <div class="contact__icon">📍</div>
+          <div>
+            <strong>Location</strong>
+            <p>Ngong Rd, near Racecourse, Nairobi</p>
+          </div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__icon">📞</div>
+          <div>
+            <strong>Phone / WhatsApp</strong>
+            <p><a href="tel:+254759657163">0759 657 163</a></p>
+          </div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__icon">📘</div>
+          <div>
+            <strong>Facebook</strong>
+            <p><a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener">Iconic Furnitures</a></p>
+          </div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__icon">🎵</div>
+          <div>
+            <strong>TikTok</strong>
+            <p><a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener">@iconicfurniture1</a></p>
+          </div>
+        </div>
+        <a href="https://wa.me/254759657163?text=Hi%20Iconic%20Furnitures!%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" class="btn btn--whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
 
-<h2 class="text-3xl font-bold mb-6">
-Contact Us
-</h2>
-
-<form id="contactForm" class="grid gap-4 max-w-xl">
-
-<input id="name" placeholder="Name" class="bg-slate-900 p-4 rounded-xl">
-<input id="phone" placeholder="Phone" class="bg-slate-900 p-4 rounded-xl">
-
-<textarea
-id="message"
-placeholder="Message"
-class="bg-slate-900 p-4 rounded-xl">
-</textarea>
-
-<button class="bg-amber-500 text-black p-4 rounded-xl font-bold">
-Send Inquiry
-</button>
-
-</form>
-
+      <form class="contact__form reveal" id="contactForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="John Kamau" required/>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="07XX XXX XXX" required/>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Needed</label>
+          <select id="service">
+            <option value="">Select a service…</option>
+            <option>Furniture Weaving</option>
+            <option>Cushion Repair</option>
+            <option>Custom Design</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" rows="4" placeholder="Describe what you need…"></textarea>
+        </div>
+        <button type="submit" class="btn btn--dark btn--full">Send via WhatsApp</button>
+      </form>
+    </div>
+  </div>
 </section>
 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">ICONIC <span>FURNITURES</span></div>
+    <p>Ngong Rd, Nairobi &nbsp;·&nbsp; 0759 657 163</p>
+    <p class="footer__copy">© 2026 Iconic Furnitures. All rights reserved.</p>
+  </div>
+</footer>
 
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-<div class="bg-slate-900 p-8 rounded-3xl max-w-md text-center">
-
-<img id="modalImg" class="rounded-2xl mb-4">
-
-<h3 id="modalName" class="text-2xl font-bold mb-2"></h3>
-
-<p id="modalPrice" class="gold mb-4"></p>
-
-<a
-id="orderBtn"
-target="_blank"
-class="bg-green-500 px-6 py-3 rounded-full inline-block">
-Order On WhatsApp
-</a>
-
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt=""/>
 </div>
-</div>
-
-
 
 <script>
-
-
-window.onload=()=>{
-setTimeout(()=>{
-loader.style.display="none"
-},1200)
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
 }
-
-
-
-window.addEventListener("scroll",()=>{
-
-let winScroll=document.body.scrollTop||document.documentElement.scrollTop
-
-let height=
-document.documentElement.scrollHeight
--
-document.documentElement.clientHeight
-
-let scrolled=(winScroll/height)*100
-
-progress.style.width=scrolled+"%"
-
-})
-
-
-
-const slides=document.querySelectorAll(".hero-slide")
-
-let slideIndex=0
-
-setInterval(()=>{
-
-slides.forEach(s=>s.classList.remove("active"))
-
-slideIndex++
-
-if(slideIndex>=slides.length) slideIndex=0
-
-slides[slideIndex].classList.add("active")
-
-},4000)
-
-
-
-const observer=
-new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show")
-
-}
-
-})
-
-})
-
-document
-.querySelectorAll(".reveal")
-.forEach(el=>observer.observe(el))
-
-
-
-document
-.querySelectorAll(".counter")
-.forEach(counter=>{
-
-let target=+counter.dataset.target
-
-let count=0
-
-let interval=setInterval(()=>{
-
-count += Math.ceil(target/40)
-
-if(count>=target){
-
-count=target
-
-clearInterval(interval)
-
-}
-
-counter.innerText=count
-
-},40)
-
-})
-
-
-
-
-const products=[
-
-{
-name:"Balcony Set",
-price:"KES 18,000",
-category:"balcony",
-img:"images/product1.jpg"
-},
-
-{
-name:"Outdoor Chair",
-price:"KES 9,500",
-category:"chair",
-img:"images/product2.jpg"
-},
-
-{
-name:"Luxury Cushion",
-price:"KES 1,500",
-category:"cushion",
-img:"images/product3.jpg"
-}
-
-]
-
-
-
-const grid=document.getElementById("productsGrid")
-
-
-
-function renderProducts(list){
-
-grid.innerHTML=""
-
-list.forEach(product=>{
-
-grid.innerHTML += `
-
-<div
-class="product-card border border-slate-800 rounded-2xl p-4 cursor-pointer"
-onclick='openModal(${JSON.stringify(product)})'>
-
-<img src="${product.img}" class="rounded-xl mb-4">
-
-<h4 class="font-semibold">${product.name}</h4>
-
-<p class="text-slate-300">${product.price}</p>
-
-</div>
-
-`
-
-})
-
-}
-
-
-
-renderProducts(products)
-
-
-
-function filterProducts(category){
-
-if(category==="all"){
-
-renderProducts(products)
-
-return
-
-}
-
-renderProducts(
-products.filter(p=>p.category===category)
-)
-
-}
-
-
-
-search.oninput=e=>{
-
-const term=
-e.target.value.toLowerCase()
-
-renderProducts(
-
-products.filter(p=>
-
-p.name.toLowerCase().includes(term)
-
-)
-
-)
-
-}
-
-
-
-function openModal(product){
-
-modal.classList.add("open")
-
-modalImg.src=product.img
-
-modalName.innerText=product.name
-
-modalPrice.innerText=product.price
-
-orderBtn.href=
-`https://wa.me/254759657163?text=Hello I want ${product.name}`
-
-}
-
-
-
-modal.onclick=(e)=>{
-
-if(e.target===modal){
-
-modal.classList.remove("open")
-
-}
-
-}
-
-
-
-
-let testimonialIndex=0
-
-const testimonials=
-document.querySelectorAll(".testimonial")
-
-setInterval(()=>{
-
-testimonials.forEach(t=>
-t.classList.remove("active")
-)
-
-testimonialIndex++
-
-if(testimonialIndex>=testimonials.length){
-
-testimonialIndex=0
-
-}
-
-testimonials[testimonialIndex]
-.classList.add("active")
-
-},3000)
-
-
-
-contactForm.onsubmit=(e)=>{
-
-e.preventDefault()
-
-const text=`
-Hello Iconic Furniture
-
-Name: ${name.value}
-Phone: ${phone.value}
-
-Message:
-${message.value}
-`
-
-window.open(
-`https://wa.me/254759657163?text=${encodeURIComponent(text)}`
-)
-
-}
-
+animateCursor();
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Burger menu
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMenu() { mobileMenu.classList.remove('open'); }
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((el, i) => {
+    if (el.isIntersecting) {
+      setTimeout(() => el.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Gallery lightbox
+document.querySelectorAll('.gallery__item').forEach(item => {
+  item.addEventListener('click', () => {
+    const img = item.querySelector('img');
+    if (!img || item.classList.contains('no-img')) return;
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  });
+});
+document.getElementById('lightboxClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+
+// Form → WhatsApp
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const service = document.getElementById('service').value;
+  const message = document.getElementById('message').value;
+  const text = `Hi Iconic Furnitures! My name is ${name}, phone: ${phone}. I need: ${service}. ${message}`;
+  window.open(`https://wa.me/254759657163?text=${encodeURIComponent(text)}`, '_blank');
+});
 </script>
-
 </body>
 </html>
