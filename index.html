@@ -3,943 +3,1191 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Iconic Furnitures | Shop</title>
+<title>Iconic Furnitures | Nairobi</title>
+<meta name="description" content="Custom furniture weaving, cushion repair & bespoke designs. Located on Ngong Rd near Racecourse, Nairobi. Call 0759657163."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-:root{
-  --ink:#1A1410;
-  --ink2:#2C2218;
-  --sand:#F7F2EB;
-  --sand2:#EDE5D8;
-  --copper:#B5732A;
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --ink:    #1A1410;
+  --ink2:   #2C2218;
+  --sand:   #F7F2EB;
+  --sand2:  #EDE5D8;
+  --copper: #B5732A;
   --copper2:#D4943E;
   --copper3:#E8C080;
-  --muted:#8A7A6A;
-  --white:#FDFAF6;
-  --ff-display:'Playfair Display',Georgia,serif;
-  --ff-body:'Jost',sans-serif;
-  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
-}
-body{
-  background:var(--white);
-  color:var(--ink);
-  font-family:var(--ff-body);
-  font-weight:300;
-  overflow-x:hidden;
+  --muted:  #8A7A6A;
+  --white:  #FDFAF6;
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'Jost', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* NAV */
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(253,250,246,0.96);
-  backdrop-filter:blur(12px);
-  padding:18px 40px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid rgba(181,115,42,0.1);
-}
-.nav__logo{
-  font-family:var(--ff-display);font-size:18px;font-weight:700;
-  color:var(--ink);text-decoration:none;letter-spacing:1px;
-}
-.nav__logo span{color:var(--copper);}
-.nav__back{
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-  transition:color 0.2s;
-}
-.nav__back:hover{color:var(--copper);}
-
-/* PAGE HEADER */
-.page-header{
-  background:var(--ink2);
-  padding:80px 40px 60px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.page-header::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 100%,rgba(181,115,42,0.2) 0%,transparent 60%);
-}
-.page-header__tag{
-  font-size:10px;letter-spacing:4px;text-transform:uppercase;
-  color:var(--copper2);margin-bottom:16px;display:block;position:relative;
-}
-.page-header h1{
-  font-family:var(--ff-display);
-  font-size:clamp(36px,7vw,64px);
-  font-weight:400;color:var(--sand);
-  position:relative;
-}
-.page-header h1 em{font-style:italic;color:var(--copper2);}
-.page-header p{
-  font-size:13px;color:rgba(247,242,235,0.5);
-  margin-top:16px;letter-spacing:0.5px;position:relative;
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
 }
 
-/* FILTER BAR */
-.filter-bar{
-  padding:24px 40px;
-  display:flex;gap:12px;flex-wrap:wrap;align-items:center;
-  border-bottom:1px solid var(--sand2);
-  background:var(--white);
+/* Custom cursor */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--copper);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s var(--ease), background 0.2s;
+  transform: translate(-50%,-50%);
 }
-.filter-btn{
-  font-family:var(--ff-body);
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  padding:8px 20px;border:1px solid var(--sand2);
-  background:none;color:var(--muted);
-  cursor:pointer;transition:all 0.2s;
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(181,115,42,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.4s var(--ease), width 0.3s, height 0.3s, border-color 0.3s;
+  transform: translate(-50%,-50%);
 }
-.filter-btn:hover,.filter-btn.active{
-  border-color:var(--copper);color:var(--copper);
-  background:rgba(181,115,42,0.05);
-}
-.filter-count{
-  margin-left:auto;font-size:12px;color:var(--muted);
+body:hover .cursor-ring { border-color: rgba(181,115,42,0.6); }
+
+a, button { cursor: none; }
+
+/* ===========================
+   NOISE TEXTURE OVERLAY
+=========================== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.4;
 }
 
-/* PRODUCTS GRID */
-.products{padding:60px 40px 100px;}
-.products__grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:24px;
-  max-width:1300px;margin:0 auto;
+/* ===========================
+   NAVIGATION
+=========================== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+}
+.nav.scrolled {
+  background: rgba(253,250,246,0.95);
+  backdrop-filter: blur(12px);
+  padding: 16px 40px;
+  box-shadow: 0 1px 0 rgba(26,20,16,0.08);
+}
+.nav__logo {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav__logo span { color: var(--copper); }
+.nav__links {
+  list-style: none;
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav__links a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__cta {
+  background: var(--ink) !important;
+  color: var(--white) !important;
+  padding: 10px 24px !important;
+  letter-spacing: 2px;
+  transition: background 0.2s !important;
+}
+.nav__cta:hover { background: var(--copper) !important; color: var(--white) !important; }
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav__burger span {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.3s, opacity 0.3s;
 }
 
-/* PRODUCT CARD */
-.card{
-  background:var(--white);
-  border:1px solid var(--sand2);
-  overflow:hidden;
-  transition:transform 0.3s var(--ease),box-shadow 0.3s var(--ease),border-color 0.3s;
-  position:relative;
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
 }
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 20px 40px rgba(26,20,16,0.1);
-  border-color:rgba(181,115,42,0.2);
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+.mobile-menu ul { list-style: none; text-align: center; }
+.mobile-menu li { margin: 24px 0; }
+.mobile-menu a {
+  font-family: var(--ff-display);
+  font-size: clamp(28px, 8vw, 48px);
+  font-style: italic;
+  color: var(--sand);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--copper2); }
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Image area */
-.card__img{
-  position:relative;
-  aspect-ratio:4/3;
-  overflow:hidden;
-  background:var(--sand2);
-}
-.card__img img{
-  width:100%;height:100%;
-  object-fit:cover;
-  transition:transform 0.6s var(--ease);
-  display:block;
-}
-.card:hover .card__img img{transform:scale(1.06);}
-
-/* Placeholder when no image */
-.card__img.placeholder{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:10px;
-  background:linear-gradient(135deg,var(--sand2),var(--sand));
-}
-.card__img.placeholder::after{
-  content:attr(data-name);
-  font-family:var(--ff-display);
-  font-size:13px;font-style:italic;
-  color:var(--muted);text-align:center;
-  padding:0 20px;line-height:1.5;
-}
-.card__img.placeholder::before{
-  content:'✦';
-  font-size:24px;color:rgba(181,115,42,0.3);
+.hero__left {
+  background: var(--ink2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 60px 80px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Category badge */
-.card__cat{
-  position:absolute;top:14px;left:14px;
-  background:var(--ink);
-  color:var(--sand);
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 12px;
+.hero__left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 0% 100%, rgba(181,115,42,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 0%, rgba(181,115,42,0.08) 0%, transparent 50%);
 }
 
-/* Price tag */
-.card__price-tag{
-  position:absolute;top:14px;right:14px;
-  background:var(--copper);
-  color:var(--white);
-  font-family:var(--ff-display);
-  font-size:15px;font-weight:700;
-  padding:6px 14px;
-  box-shadow:0 4px 12px rgba(181,115,42,0.4);
+.hero__right {
+  background: var(--sand2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Card body */
-.card__body{
-  padding:20px 24px 24px;
-  border-top:1px solid var(--sand2);
-}
-.card__name{
-  font-family:var(--ff-display);
-  font-size:18px;font-weight:400;
-  color:var(--ink);margin-bottom:6px;line-height:1.3;
-}
-.card__desc{
-  font-size:12px;color:var(--muted);
-  line-height:1.7;margin-bottom:16px;
-}
-.card__footer{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;
-}
-.card__price-main{
-  font-family:var(--ff-display);
-  font-size:22px;font-weight:700;color:var(--copper);
-}
-.card__price-sub{
-  font-size:10px;letter-spacing:1px;
-  text-transform:uppercase;color:var(--muted);
-  margin-top:2px;
-}
-.card__order{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--ink);color:var(--white);
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  padding:10px 18px;text-decoration:none;
-  transition:background 0.2s,transform 0.2s;
-  white-space:nowrap;
-}
-.card__order:hover{background:var(--copper);transform:translateY(-1px);}
-
-/* WHATSAPP FLOAT */
-.wa-float{
-  position:fixed;bottom:28px;right:28px;z-index:200;
-  width:56px;height:56px;border-radius:50%;
-  background:#25D366;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,0.4);
-  text-decoration:none;
-  transition:transform 0.2s,box-shadow 0.2s;
-  animation:waPulse 2.5s ease infinite;
-}
-.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.5);}
-@keyframes waPulse{
-  0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4);}
-  50%{box-shadow:0 4px 30px rgba(37,211,102,0.7);}
+.hero__right-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(181,115,42,0.04) 30px, rgba(181,115,42,0.04) 31px),
+    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(181,115,42,0.04) 30px, rgba(181,115,42,0.04) 31px);
 }
 
-/* FOOTER */
-footer{
-  background:var(--ink2);
-  padding:40px;text-align:center;
-  border-top:1px solid rgba(181,115,42,0.1);
+.hero__right-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+  text-align: center;
 }
-footer p{font-size:12px;color:rgba(247,242,235,0.3);letter-spacing:1px;}
-footer strong{
-  display:block;
-  font-family:var(--ff-display);
-  font-size:18px;font-weight:700;
-  color:var(--sand);letter-spacing:1px;
-  margin-bottom:8px;
-}
-footer strong span{color:var(--copper2);}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s var(--ease),transform 0.6s var(--ease);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-  .nav{padding:16px 20px;}
-  .page-header{padding:60px 24px 40px;}
-  .filter-bar{padding:16px 20px;}
-  .products{padding:40px 20px 80px;}
-  .products__grid{grid-template-columns:1fr 1fr;gap:14px;}
-  .card__body{padding:14px 16px 16px;}
-  .card__name{font-size:15px;}
-  .card__price-main{font-size:18px;}
-  .card__order{padding:8px 12px;font-size:9px;}
-  .card__price-tag{font-size:13px;padding:5px 10px;}
+.hero__craft-word {
+  font-family: var(--ff-display);
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(181,115,42,0.12);
+  line-height: 1;
+  letter-spacing: -2px;
+  user-select: none;
 }
-@media(max-width:400px){
-  .products__grid{grid-template-columns:1fr;}
+
+.hero__right-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px; height: 180px;
+  border: 1px solid rgba(181,115,42,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  animation: rotateBadge 20s linear infinite;
+}
+
+.hero__right-badge::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(181,115,42,0.15);
+  border-radius: 50%;
+}
+
+@keyframes rotateBadge {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.badge-inner {
+  animation: rotateBadge 20s linear infinite reverse;
+  text-align: center;
+}
+
+.badge-inner span:first-child {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--copper);
+}
+.badge-inner span:last-child {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.hero__tag {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper2);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__title {
+  font-family: var(--ff-display);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--sand);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.hero__title em { font-style: italic; color: var(--copper2); }
+
+.hero__sub {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(247,242,235,0.55);
+  max-width: 380px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.hero__scroll span {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(247,242,235,0.3);
+}
+.hero__scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--copper), transparent);
+  animation: scrollAnim 2s ease infinite;
+}
+@keyframes scrollAnim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: var(--ff-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.btn--primary {
+  background: var(--copper);
+  color: var(--white);
+  border: 1px solid var(--copper);
+}
+.btn--primary:hover { background: var(--copper2); border-color: var(--copper2); transform: translateY(-2px); }
+.btn--outline {
+  border: 1px solid rgba(247,242,235,0.3);
+  color: var(--sand);
+}
+.btn--outline:hover { border-color: var(--copper2); color: var(--copper2); transform: translateY(-2px); }
+.btn--dark {
+  background: var(--ink);
+  color: var(--white);
+  border: 1px solid var(--ink);
+}
+.btn--dark:hover { background: var(--copper); border-color: var(--copper); transform: translateY(-2px); }
+.btn--whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  padding: 16px 32px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 24px;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn--whatsapp:hover { background: #20c25d; transform: translateY(-2px); }
+.btn--full { width: 100%; text-align: center; }
+
+/* ===========================
+   MARQUEE STRIP
+=========================== */
+.strip {
+  background: var(--copper);
+  overflow: hidden;
+  padding: 14px 0;
+}
+.strip__track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+.strip__track span {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+  font-weight: 400;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===========================
+   SECTIONS SHARED
+=========================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+.section-tag {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 14px;
+  display: block;
+}
+.section-header h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.section-header h2 em { font-style: italic; color: var(--copper); }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===========================
+   SERVICES
+=========================== */
+.services {
+  padding: 120px 0;
+  background: var(--white);
+}
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.service-card {
+  background: var(--sand);
+  padding: 48px 36px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transition: transform 0.4s var(--ease);
+  transform-origin: left;
+}
+.service-card:hover {
+  border-color: rgba(181,115,42,0.15);
+  transform: translateY(-6px);
+  background: var(--white);
+}
+.service-card:hover::after { transform: scaleX(1); }
+.service-card__icon {
+  font-size: 28px;
+  color: var(--copper);
+  margin-bottom: 24px;
+  display: block;
+  transition: transform 0.3s;
+}
+.service-card:hover .service-card__icon { transform: scale(1.2); }
+.service-card h3 {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.service-card p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+/* ===========================
+   GALLERY
+=========================== */
+.gallery {
+  padding: 120px 0;
+  background: var(--ink2);
+}
+.gallery .section-tag { color: var(--copper2); }
+.gallery .section-header h2 { color: var(--sand); }
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 3px;
+  margin-top: 60px;
+}
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--ink);
+  cursor: none;
+}
+.gallery__item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: unset;
+}
+.gallery__item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+  display: block;
+}
+.gallery__item.no-img {
+  background: linear-gradient(135deg, #2C2218, #1A1410);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery__item.no-img::before {
+  content: '✦';
+  font-size: 32px;
+  color: rgba(181,115,42,0.2);
+}
+.gallery__item:hover img { transform: scale(1.08); }
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,20,16,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery__item:hover .gallery__overlay { opacity: 1; }
+.gallery__overlay span {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--copper3);
+  border: 1px solid rgba(232,192,128,0.4);
+  padding: 10px 24px;
+}
+
+/* ===========================
+   ABOUT
+=========================== */
+.about {
+  padding: 120px 0;
+  background: var(--white);
+}
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about__text p.section-tag { margin-bottom: 14px; }
+.about__text h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.about__text > p {
+  font-size: 13px;
+  line-height: 2;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.about__stats {
+  display: flex;
+  gap: 32px;
+  margin: 40px 0;
+  padding: 32px 0;
+  border-top: 1px solid var(--sand2);
+  border-bottom: 1px solid var(--sand2);
+}
+.stat__num {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--copper);
+  line-height: 1;
+}
+.stat__label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.about__social {
+  display: flex;
+  gap: 16px;
+}
+.social-link {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.social-link:hover { color: var(--copper); }
+
+.about__image-frame {
+  position: relative;
+}
+.about__image-frame img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+.about__image-deco {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(181,115,42,0.2);
+  z-index: -1;
+  transition: inset 0.4s var(--ease);
+}
+.about__image-frame:hover .about__image-deco { inset: -24px; }
+
+/* ===========================
+   CONTACT
+=========================== */
+.contact {
+  padding: 120px 0;
+  background: var(--sand2);
+}
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  margin-top: 60px;
+}
+.contact__info {}
+.contact__item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(181,115,42,0.1);
+}
+.contact__icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.contact__item strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.contact__item p, .contact__item a {
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.6;
+}
+.contact__item a:hover { color: var(--copper); }
+
+/* Form */
+.contact__form {
+  background: var(--white);
+  padding: 48px 40px;
+  box-shadow: 0 20px 60px rgba(26,20,16,0.08);
+}
+.form-group {
+  margin-bottom: 24px;
+}
+.form-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--sand2);
+  background: var(--white);
+  font-family: var(--ff-body);
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 300;
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--copper); }
+.form-group textarea { resize: vertical; }
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer {
+  background: var(--ink);
+  padding: 48px 40px;
+}
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.footer__logo {
+  font-family: var(--ff-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sand);
+  letter-spacing: 1px;
+}
+.footer__logo span { color: var(--copper2); }
+.footer p {
+  font-size: 12px;
+  color: rgba(247,242,235,0.4);
+  letter-spacing: 1px;
+}
+.footer__copy {
+  font-size: 11px !important;
+  color: rgba(247,242,235,0.2) !important;
+}
+
+/* ===========================
+   LIGHTBOX
+=========================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,6,0.95);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.lightbox.open { opacity: 1; pointer-events: all; }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.lightbox__close {
+  position: absolute;
+  top: 24px; right: 32px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--sand);
+  cursor: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.lightbox__close:hover { opacity: 1; }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero__right { display: none; }
+  .hero__left { padding: 100px 32px 80px; min-height: 100vh; }
+  .nav { padding: 20px 24px; }
+  .nav.scrolled { padding: 14px 24px; }
+  .nav__links { display: none; }
+  .nav__burger { display: flex; }
+  .services__grid { grid-template-columns: 1fr; }
+  .gallery__grid { grid-template-columns: 1fr 1fr; }
+  .gallery__item:first-child { grid-column: span 2; grid-row: span 1; }
+  .about__inner { grid-template-columns: 1fr; gap: 48px; }
+  .about__image { order: -1; }
+  .contact__inner { grid-template-columns: 1fr; gap: 40px; }
+  .contact__form { padding: 32px 24px; }
+  .container { padding: 0 24px; }
+  .services { padding: 80px 0; }
+  .gallery { padding: 80px 0; }
+  .about { padding: 80px 0; }
+  .contact { padding: 80px 0; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+  a, button { cursor: auto; }
+}
+
+@media (max-width: 600px) {
+  .gallery__grid { grid-template-columns: 1fr; }
+  .gallery__item:first-child { grid-column: span 1; }
+  .about__stats { flex-direction: column; gap: 20px; }
+  .hero__actions { flex-direction: column; }
+  .btn { text-align: center; }
 }
 </style>
 </head>
 <body>
 
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav__logo">ICONIC <span>FURNITURES</span></div>
-  <a href="index.html" class="nav__back">← Back to Home</a>
+  <ul class="nav__links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav__cta">Get a Quote</a></li>
+  </ul>
+  <button class="nav__burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <span class="page-header__tag">Nairobi's Finest Furniture Craft</span>
-  <h1>Our <em>Collection</em></h1>
-  <p>All pieces handcrafted · Ngong Rd, Nairobi · Call 0759 657 163</p>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Get a Quote</a></li>
+  </ul>
 </div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
-  <button class="filter-btn" onclick="filterCards('indoor',this)">Indoor</button>
-  <button class="filter-btn" onclick="filterCards('outdoor',this)">Outdoor</button>
-  <button class="filter-btn" onclick="filterCards('kids',this)">Kids</button>
-  <span class="filter-count" id="filterCount">36 items</span>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero__left">
+    <p class="hero__tag reveal">Nairobi's Finest Furniture Craft</p>
+    <h1 class="hero__title reveal">Where Fabric<br/><em>Meets</em> Form</h1>
+    <p class="hero__sub reveal">Custom weaving, cushion repair & bespoke furniture design<br/>on Ngong Rd, Nairobi.</p>
+    <div class="hero__actions reveal">
+      <a href="#contact" class="btn btn--primary">Book a Consultation</a>
+      <a href="#services" class="btn btn--outline">Our Services</a>
+    </div>
+  </div>
+  <div class="hero__right">
+    <div class="hero__right-bg"></div>
+    <div class="hero__right-content">
+      <div class="hero__craft-word">Craft</div>
+      <div class="hero__right-badge">
+        <div class="badge-inner">
+          <span>100%</span>
+          <span>Handcrafted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip__track">
+    <span>Weaving</span><span>✦</span>
+    <span>Cushion Repair</span><span>✦</span>
+    <span>Custom Design</span><span>✦</span>
+    <span>Bespoke Furniture</span><span>✦</span>
+    <span>Nairobi Based</span><span>✦</span>
+    <span>Weaving</span><span>✦</span>
+    <span>Cushion Repair</span><span>✦</span>
+    <span>Custom Design</span><span>✦</span>
+    <span>Bespoke Furniture</span><span>✦</span>
+    <span>Nairobi Based</span><span>✦</span>
+  </div>
 </div>
 
-<!-- PRODUCTS -->
-<section class="products">
-  <div class="products__grid" id="grid">
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">What We Do</span>
+      <h2>Our Services</h2>
+    </div>
+    <div class="services__grid">
+      <div class="service-card reveal">
+        <div class="service-card__icon">⟡</div>
+        <h3>Furniture Weaving</h3>
+        <p>Traditional and modern weaving techniques applied to chairs, sofas, and decorative furniture pieces. Each piece is hand-crafted with precision.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon">◈</div>
+        <h3>Cushion Repair & Design</h3>
+        <p>We restore worn cushions to their former glory and create new custom cushion designs that perfectly match your furniture and décor.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon">❋</div>
+        <h3>Custom Furniture Design</h3>
+        <p>Bring your vision to life. Tell us what you want and we'll design and build furniture tailored exactly to your taste and space.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- 1 -->
-    <div class="card reveal" data-cat="indoor">
-      <div class="card__img placeholder" data-name="Long Dining Table Set">
-        <img src="IMG01.jpg" alt="Long Dining Table Set" onerror="this.style.display='none'"/>
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Our Work</span>
+      <h2>Crafted to Impress</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="gallery__grid">
+      <div class="gallery__item reveal">
+        <img src="images/photo1.jpg" alt="Iconic Furniture work 1" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
       </div>
-      <span class="card__cat">Indoor</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Long Dining Table Set</h3>
-        <p class="card__desc">Solid wood dining table with bench seating. Seats 6–8 people comfortably.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 150,000</div><div class="card__price-sub">Custom orders available</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Long Dining Table Set (KSh 150,000)." class="card__order" target="_blank">Order</a>
-        </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo2.jpg" alt="Iconic Furniture work 2" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo3.jpg" alt="Iconic Furniture work 3" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo4.jpg" alt="Iconic Furniture work 4" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo5.jpg" alt="Iconic Furniture work 5" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
+      </div>
+      <div class="gallery__item reveal">
+        <img src="images/photo6.jpg" alt="Iconic Furniture work 6" loading="lazy" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="gallery__overlay"><span>View</span></div>
       </div>
     </div>
-    <!-- 2 -->
-    <div class="card reveal" data-cat="indoor">
-      <div class="card__img placeholder" data-name="Bench Dining Table">
-        <img src="IMG02.jpg" alt="Bench Dining Table" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Indoor</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Bench Dining Table</h3>
-        <p class="card__desc">Solid wood table with matching bench seats. Perfect for large families.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 150,000</div><div class="card__price-sub">Custom sizes available</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Bench Dining Table (KSh 150,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 3 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Canopy Swing Seat">
-        <img src="IMG03.jpg" alt="Canopy Swing Seat" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">35k</span>
-      <div class="card__body">
-        <h3 class="card__name">Canopy Swing Seat</h3>
-        <p class="card__desc">Premium canopy swing with cushioned seating. A luxurious garden addition.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 35,000</div><div class="card__price-sub">With cushions</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Canopy Swing Seat (KSh 35,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 4 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Garden Swing Bench">
-        <img src="IMG06.jpg" alt="Garden Swing Bench" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">75k</span>
-      <div class="card__body">
-        <h3 class="card__name">Garden Swing Bench</h3>
-        <p class="card__desc">Classic garden swing bench. Seats 2–3 adults comfortably.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 75,000</div><div class="card__price-sub">With canopy</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Garden Swing Bench (KSh 75,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 5 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Hanging Swing Chair">
-        <img src="IMG05.jpg" alt="Hanging Swing Chair" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">25k</span>
-      <div class="card__body">
-        <h3 class="card__name">Hanging Swing Chair</h3>
-        <p class="card__desc">Luxury wicker hanging swing chair with cushions. A statement piece.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 25,000</div><div class="card__price-sub">With cushions</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Hanging Swing Chair (KSh 25,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 6 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Picnic Table Set">
-        <img src="IMG07.jpg" alt="Picnic Table Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">30k</span>
-      <div class="card__body">
-        <h3 class="card__name">Picnic Table Set</h3>
-        <p class="card__desc">Sturdy outdoor picnic table with bench seating on both sides.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 30,000</div><div class="card__price-sub">Complete set</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Picnic Table Set (KSh 30,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 7 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Full Kids Playground">
-        <img src="IMG08.jpg" alt="Full Kids Playground" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Full Kids Playground</h3>
-        <p class="card__desc">Complete playground with slides, climbing frames and swings. Schools & estates.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 150,000</div><div class="card__price-sub">Full installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Full Kids Playground (KSh 150,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 8 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Green Hanging Chair">
-        <img src="IMG09.jpg" alt="Green Hanging Chair" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">25k</span>
-      <div class="card__body">
-        <h3 class="card__name">Green Hanging Chair</h3>
-        <p class="card__desc">Stylish green hanging egg chair. Perfect for patios and gardens.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 25,000</div><div class="card__price-sub">Per piece</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Green Hanging Chair (KSh 25,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 9 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Outdoor Wicker Dining Set">
-        <img src="IMG10.jpg" alt="Outdoor Wicker Dining Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">45k</span>
-      <div class="card__body">
-        <h3 class="card__name">Outdoor Wicker Dining Set</h3>
-        <p class="card__desc">Woven wicker table and chairs. Perfect for patios and gardens.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 45,000</div><div class="card__price-sub">Weather resistant</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Outdoor Wicker Dining Set (KSh 45,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 10 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Outdoor Dining Set">
-        <img src="IMG13.jpg" alt="Outdoor Dining Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">42k</span>
-      <div class="card__body">
-        <h3 class="card__name">Outdoor Dining Set</h3>
-        <p class="card__desc">Full outdoor dining experience with wicker table and matching chairs.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 42,000</div><div class="card__price-sub">Complete set</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Outdoor Dining Set (KSh 42,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 11 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Wire Metal Stand">
-        <img src="IMG14.jpg" alt="Wire Metal Stand" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">5k</span>
-      <div class="card__body">
-        <h3 class="card__name">Wire Bowl Chair</h3>
-        <p class="card__desc">Minimalist wire bowl chair. Lightweight, modern and versatile.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 5,000</div><div class="card__price-sub">Per piece</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Wire Bowl Chair (KSh 5,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 12 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Outdoor Chairs Set">
-        <img src="IMG15.jpg" alt="Outdoor Chairs Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">15k</span>
-      <div class="card__body">
-        <h3 class="card__name">Outdoor Chairs Set</h3>
-        <p class="card__desc">Set of wicker outdoor chairs with cushions. Ideal for verandas.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 15,000</div><div class="card__price-sub">Set of 4</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Outdoor Chairs Set (KSh 25,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 13 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Green Swing Chair">
-        <img src="IMG17.jpg" alt="Green Swing Chair" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">25k</span>
-      <div class="card__body">
-        <h3 class="card__name">Green Cushion Set</h3>
-        <p class="card__desc">Custom cushioned set with bold green upholstery. Handcrafted to order.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 25,000</div><div class="card__price-sub">Custom colors available</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Green Cushion Set (KSh 25,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 14 -->
-    <div class="card reveal" data-cat="indoor">
-      <div class="card__img placeholder" data-name="Cabinet TV Unit">
-        <img src="IMG18.jpg" alt="Cabinet TV Unit" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Indoor</span>
-      <span class="card__price-tag">40k</span>
-      <div class="card__body">
-        <h3 class="card__name">Cabinet / TV Unit</h3>
-        <p class="card__desc">Handcrafted wooden cabinet with woven panel detailing. Custom sizes available.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 40,000</div><div class="card__price-sub">Custom sizes</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Cabinet/TV Unit (KSh 40,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 15 -->
-    <div class="card reveal" data-cat="indoor">
-      <div class="card__img placeholder" data-name="Carpet Rug">
-        <img src="IMG19.jpg" alt="Carpet Rug" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Indoor</span>
-      <span class="card__price-tag">30k</span>
-      <div class="card__body">
-        <h3 class="card__name">Premium Carpet / Rug</h3>
-        <p class="card__desc">High quality woven carpet. Available in custom sizes and patterns.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 30,000</div><div class="card__price-sub">Custom sizes</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Premium Carpet (KSh 30,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 16 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Orange Chair Set">
-        <img src="IMG20.jpg" alt="Orange Chair Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">15k</span>
-      <div class="card__body">
-        <h3 class="card__name">Accent Chair Set</h3>
-        <p class="card__desc">Vibrant accent chairs with woven design. Perfect for any corner.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 15,000</div><div class="card__price-sub">Per piece</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Accent Chair Set (KSh 15,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 17 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Kids Slide">
-        <img src="IMG21.jpg" alt="Kids Slide" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Kids Slide</h3>
-        <p class="card__desc">Colorful kids slide. Suitable for home gardens and play areas.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 150,000</div><div class="card__price-sub">Home use</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Kids Slide (KSh 36,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 18 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Patio Sofa Set">
-        <img src="IMG22.jpg" alt="Patio Sofa Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">23k</span>
-      <div class="card__body">
-        <h3 class="card__name">Patio Sofa Set</h3>
-        <p class="card__desc">Elegant patio sofa with white cushions. Designed for outdoor lounging.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 23,000</div><div class="card__price-sub">With cushions</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Patio Sofa Set (KSh 23,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 19 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Garden Swing Bench 2">
-        <img src="IMG23.jpg" alt="Garden Swing Bench" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">28k</span>
-      <div class="card__body">
-        <h3 class="card__name">Garden Bench Swing</h3>
-        <p class="card__desc">Classic garden swing with canopy. Seats 2–3 adults comfortably.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 28,000</div><div class="card__price-sub">With canopy</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Garden Bench Swing (KSh 28,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 20 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Canopy Bench Set">
-        <img src="IMG24.jpg" alt="Canopy Bench Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">35k</span>
-      <div class="card__body">
-        <h3 class="card__name">Canopy Bench Set</h3>
-        <p class="card__desc">Shaded canopy bench set. Great for gardens and outdoor spaces.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 35,000</div><div class="card__price-sub">Complete set</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Canopy Bench Set (KSh 35,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 21 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Kids Slide Small">
-        <img src="IMG25.jpg" alt="Kids Slide Small" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">36k</span>
-      <div class="card__body">
-        <h3 class="card__name">Kids Slide (Small)</h3>
-        <p class="card__desc">Compact colorful slide for younger kids. Safe and durable.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 36,000</div><div class="card__price-sub">Ages 2–8</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Kids Slide Small (KSh 36,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 22 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Outdoor Dining Set 2">
-        <img src="IMG26.jpg" alt="Outdoor Dining Set 2" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">42k</span>
-      <div class="card__body">
-        <h3 class="card__name">Garden Dining Set</h3>
-        <p class="card__desc">Premium outdoor dining set with wicker chairs and glass top table.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 42,000</div><div class="card__price-sub">Complete set</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Garden Dining Set (KSh 42,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 23 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Table Set">
-        <img src="IMG27.jpg" alt="Table Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">28k</span>
-      <div class="card__body">
-        <h3 class="card__name">Outdoor Table Set</h3>
-        <p class="card__desc">Stylish outdoor table with matching chairs. Durable and weather resistant.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 28,000</div><div class="card__price-sub">Complete set</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Outdoor Table Set (KSh 28,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-    <!-- 24 -->
-    <div class="card reveal" data-cat="outdoor">
-      <div class="card__img placeholder" data-name="Wire Bowl Chair">
-        <img src="IMG28.jpg" alt="Wire Bowl Chair" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Outdoor</span>
-      <span class="card__price-tag">5k</span>
-      <div class="card__body">
-        <h3 class="card__name">Wire Bowl Chair</h3>
-        <p class="card__desc">Minimalist wire bowl chair. Lightweight, modern and versatile.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 5,000</div><div class="card__price-sub">Per piece</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Wire Bowl Chair (KSh 5,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
+  </div>
+</section>
 
-    <!-- 25 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry Go Round Blue">
-        <img src="IMG29.jpg" alt="Merry Go Round Blue" onerror="this.style.display='none'"/>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container about__inner">
+    <div class="about__text reveal">
+      <span class="section-tag">Our Story</span>
+      <h2>Craftsmanship<br/>You Can Trust</h2>
+      <p>Iconic Furnitures is a Nairobi-based furniture workshop located along Ngong Road, near the Racecourse. We specialize in bringing character and life back to your furniture through skilled weaving, cushion design, and fully bespoke creations.</p>
+      <p>Whether you have a broken chair that needs revival or a dream sofa in your head — we make it real.</p>
+      <div class="about__stats">
+        <div class="stat">
+          <span class="stat__num">100%</span>
+          <span class="stat__label">Handcrafted</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">Custom</span>
+          <span class="stat__label">Every Order</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">Nairobi</span>
+          <span class="stat__label">Based & Trusted</span>
+        </div>
       </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">45k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Blue)</h3>
-        <p class="card__desc">Colorful merry-go-round with multiple seats. Perfect for schools and estates.</p>
-        <div class="card__footer">
+      <div class="about__social">
+        <a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener" class="social-link">Facebook</a>
+        <a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener" class="social-link">TikTok</a>
+      </div>
+    </div>
+    <div class="about__image reveal">
+      <div class="about__image-frame">
+        <img src="images/about.jpg" alt="Iconic Furniture workshop" onerror="this.parentElement.classList.add('no-img')"/>
+        <div class="about__image-deco"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Get In Touch</span>
+      <h2>Let's Build Something<br/><em>Beautiful</em></h2>
+    </div>
+    <div class="contact__inner">
+      <div class="contact__info reveal">
+        <div class="contact__item">
+          <div class="contact__icon">📍</div>
           <div>
-            <div class="card__price-main">KSh 45,000</div>
-            <div class="card__price-sub">With installation</div>
+            <strong>Location</strong>
+            <p>Ngong Rd, near Racecourse, Nairobi</p>
           </div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Blue Merry-Go-Round (KSh 45,000). Is it available?" class="card__order" target="_blank">Order</a>
         </div>
-      </div>
-    </div>
-
-    <!-- 26 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry Go Round Green">
-        <img src="IMG30.jpg" alt="Merry Go Round Green" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">38k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Green)</h3>
-        <p class="card__desc">Vibrant green and purple merry-go-round. Durable and fun for kids.</p>
-        <div class="card__footer">
+        <div class="contact__item">
+          <div class="contact__icon">📞</div>
           <div>
-            <div class="card__price-main">KSh 38,000</div>
-            <div class="card__price-sub">With installation</div>
+            <strong>Phone / WhatsApp</strong>
+            <p><a href="tel:+254759657163">0759 657 163</a></p>
           </div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Green Merry-Go-Round (KSh 38,000). Is it available?" class="card__order" target="_blank">Order</a>
         </div>
-      </div>
-    </div>
-
-    <!-- 27 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Kids Slide Blue">
-        <img src="IMG31.jpg" alt="Kids Slide Blue" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">40k</span>
-      <div class="card__body">
-        <h3 class="card__name">Kids Slide (Blue)</h3>
-        <p class="card__desc">Standalone blue slide with climbing frame. Safe and durable for outdoor use.</p>
-        <div class="card__footer">
+        <div class="contact__item">
+          <div class="contact__icon">📘</div>
           <div>
-            <div class="card__price-main">KSh 50,000</div>
-            <div class="card__price-sub">With installation</div>
+            <strong>Facebook</strong>
+            <p><a href="https://www.facebook.com/profile.php?id=61584654729538" target="_blank" rel="noopener">Iconic Furnitures</a></p>
           </div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Blue Kids Slide (KSh 40,000). Is it available?" class="card__order" target="_blank">Order</a>
         </div>
-      </div>
-    </div>
-
-    <!-- 28 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry Go Round Red">
-        <img src="IMG32.jpg" alt="Merry Go Round Red" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Red)</h3>
-        <p class="card__desc">Large red merry-go-round with multiple colorful seats. Great for schools.</p>
-        <div class="card__footer">
+        <div class="contact__item">
+          <div class="contact__icon">🎵</div>
           <div>
-            <div class="card__price-main">KSh 50,000</div>
-            <div class="card__price-sub">With installation</div>
+            <strong>TikTok</strong>
+            <p><a href="https://www.tiktok.com/@iconicfurniture1" target="_blank" rel="noopener">@iconicfurniture1</a></p>
           </div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Red Merry-Go-Round (KSh 40,000). Is it available?" class="card__order" target="_blank">Order</a>
         </div>
+        <a href="https://wa.me/254759657163?text=Hi%20Iconic%20Furnitures!%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" class="btn btn--whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
       </div>
-    </div>
 
-    <!-- 29 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Climbing Frame">
-        <img src="IMG33.jpg" alt="Climbing Frame" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">50k</span>
-      <div class="card__body">
-        <h3 class="card__name">Climbing Frame</h3>
-        <p class="card__desc">Colorful climbing frame with multiple activities. Perfect for playgrounds.</p>
-        <div class="card__footer">
-          <div>
-            <div class="card__price-main">KSh 38,000</div>
-            <div class="card__price-sub">With installation</div>
-          </div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Climbing Frame (KSh 38,000). Is it available?" class="card__order" target="_blank">Order</a>
+      <form class="contact__form reveal" id="contactForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="John Kamau" required/>
         </div>
-      </div>
-    </div>
-
-    <!-- 30 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry-Go-Round Blue Large">
-        <img src="IMG29.jpg" alt="Merry-Go-Round Blue Large" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">45k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Blue)</h3>
-        <p class="card__desc">Large blue merry-go-round with colorful chairs. Perfect for schools & estates.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 45,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Blue Merry-Go-Round (KSh 45,000)." class="card__order" target="_blank">Order</a>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="07XX XXX XXX" required/>
         </div>
-      </div>
-    </div>
-
-    <!-- 31 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Colorful Swing Set">
-        <img src="IMG30.jpg" alt="Colorful Swing Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">38k</span>
-      <div class="card__body">
-        <h3 class="card__name">Colorful Swing Set</h3>
-        <p class="card__desc">Multi-seat colorful swing set. Safe and durable for outdoor playgrounds.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 38,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Colorful Swing Set (KSh 38,000)." class="card__order" target="_blank">Order</a>
+        <div class="form-group">
+          <label for="service">Service Needed</label>
+          <select id="service">
+            <option value="">Select a service…</option>
+            <option>Furniture Weaving</option>
+            <option>Cushion Repair</option>
+            <option>Custom Design</option>
+            <option>Other</option>
+          </select>
         </div>
-      </div>
-    </div>
-
-    <!-- 32 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry-Go-Round Green">
-        <img src="IMG31.jpg" alt="Merry-Go-Round Green" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">38k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Green)</h3>
-        <p class="card__desc">Green merry-go-round with purple/yellow seats. Fun and vibrant for kids.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 38,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Green Merry-Go-Round (KSh 38,000)." class="card__order" target="_blank">Order</a>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" rows="4" placeholder="Describe what you need…"></textarea>
         </div>
-      </div>
+        <button type="submit" class="btn btn--dark btn--full">Send via WhatsApp</button>
+      </form>
     </div>
-
-    <!-- 33 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Full Playground Set">
-        <img src="IMG32.jpg" alt="Full Playground Set" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">140k</span>
-      <div class="card__body">
-        <h3 class="card__name">Full Playground Set</h3>
-        <p class="card__desc">Complete installed playground with double slides, swings and climbing frame.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 140,000</div><div class="card__price-sub">Full installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Full Playground Set (KSh 140,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 34 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Blue Slide">
-        <img src="IMG33.jpg" alt="Blue Slide" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">40k</span>
-      <div class="card__body">
-        <h3 class="card__name">Kids Slide (Blue)</h3>
-        <p class="card__desc">Standalone blue slide with frame. Suitable for home gardens and schools.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 50,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Blue Kids Slide (KSh 50,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 35 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry-Go-Round Pink">
-        <img src="IMG34.jpg" alt="Merry-Go-Round Pink" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">50k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Pink)</h3>
-        <p class="card__desc">Pink and blue merry-go-round with colorful seats. Great for younger kids.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 50,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Pink Merry-Go-Round (KSh 45,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 36 -->
-    <div class="card reveal" data-cat="kids">
-      <div class="card__img placeholder" data-name="Merry-Go-Round Red">
-        <img src="IMG35.jpg" alt="Merry-Go-Round Red" onerror="this.style.display='none'"/>
-      </div>
-      <span class="card__cat">Kids</span>
-      <span class="card__price-tag">150k</span>
-      <div class="card__body">
-        <h3 class="card__name">Merry-Go-Round (Red)</h3>
-        <p class="card__desc">Red merry-go-round with green/yellow bucket seats. Durable and fun.</p>
-        <div class="card__footer">
-          <div><div class="card__price-main">KSh 150,000</div><div class="card__price-sub">With installation</div></div>
-          <a href="https://wa.me/254759657163?text=Hi! I'm interested in the Red Merry-Go-Round (KSh 50,000)." class="card__order" target="_blank">Order</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <strong>ICONIC <span>FURNITURES</span></strong>
-  <p>Ngong Rd, near Racecourse, Nairobi &nbsp;·&nbsp; 0759 657 163</p>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">ICONIC <span>FURNITURES</span></div>
+    <p>Ngong Rd, Nairobi &nbsp;·&nbsp; 0759 657 163</p>
+    <p class="footer__copy">© 2026 Iconic Furnitures. All rights reserved.</p>
+  </div>
 </footer>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/254759657163?text=Hi Iconic Furnitures! I'd like to enquire about your products." class="wa-float" target="_blank" aria-label="WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-</a>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt=""/>
+</div>
 
 <script>
-// Reveal
-const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries => {
-  entries.forEach((el,i) => {
-    if(el.isIntersecting) setTimeout(()=>el.target.classList.add('visible'), i*60);
-  });
-},{threshold:0.08});
-reveals.forEach(el=>obs.observe(el));
-
-// Filter
-function filterCards(cat, btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const cards = document.querySelectorAll('.card');
-  let count = 0;
-  cards.forEach(card=>{
-    const show = cat==='all' || card.dataset.cat===cat;
-    card.style.display = show ? '' : 'none';
-    if(show) count++;
-  });
-  document.getElementById('filterCount').textContent = count+' items';
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
 }
+animateCursor();
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Burger menu
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMenu() { mobileMenu.classList.remove('open'); }
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((el, i) => {
+    if (el.isIntersecting) {
+      setTimeout(() => el.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Gallery lightbox
+document.querySelectorAll('.gallery__item').forEach(item => {
+  item.addEventListener('click', () => {
+    const img = item.querySelector('img');
+    if (!img || item.classList.contains('no-img')) return;
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  });
+});
+document.getElementById('lightboxClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+
+// Form → WhatsApp
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const service = document.getElementById('service').value;
+  const message = document.getElementById('message').value;
+  const text = `Hi Iconic Furnitures! My name is ${name}, phone: ${phone}. I need: ${service}. ${message}`;
+  window.open(`https://wa.me/254759657163?text=${encodeURIComponent(text)}`, '_blank');
+});
 </script>
 </body>
 </html>
