@@ -927,19 +927,8 @@ const obs = new IntersectionObserver(entries => {
 },{threshold:0.08});
 reveals.forEach(el=>obs.observe(el));
 
-// Filter
-function filterCards(cat, btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const cards = document.querySelectorAll('.card');
-  let count = 0;
-  cards.forEach(card=>{
-    const show = cat==='all' || card.dataset.cat===cat;
-    card.style.display = show ? '' : 'none';
-    if(show) count++;
-  });
-  document.getElementById('filterCount').textContent = count+' items';
-}
+
 </script>
+<script type="module" src="./src/filter.js"></script>
 </body>
 </html>
