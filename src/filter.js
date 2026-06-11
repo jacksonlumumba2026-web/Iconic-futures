@@ -22,5 +22,3 @@ export function initFilter(doc = document) {
     window.filterCards = (cat, btn) => filterCards(cat, btn, doc);
   }
 }
-
-initFilter();
